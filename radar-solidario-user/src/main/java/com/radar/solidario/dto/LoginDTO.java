@@ -1,4 +1,4 @@
-package com.radar.solidario.dto.authentication;
+package com.radar.solidario.dto;
 
 import java.io.Serializable;
 
@@ -17,13 +17,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRDTO implements Serializable {
+public class LoginDTO implements Serializable {
 
-	private static final long serialVersionUID = 2932728917392452591L;
+	private static final long serialVersionUID = 2379097295356063752L;
 
-	@Email(message = "O campo 'E-mail' é inválido")
-	@NotNull(message = "O campo 'E-mail' é obrigatório")
-	@Size(min = 6, max = 80, message = "O campo 'E-mail' deve conter entre 6 e 80 caracteres")
+	@NotNull(message = "O campo 'Email' é obrigatório")
+	@Size(min = 6, max = 80, message = "O campo 'Email' deve conter entre 6 e 80 caracteres")
+	@Email(message = "O campo 'Email' é inválido")
 	private String email;
 
 	@Password

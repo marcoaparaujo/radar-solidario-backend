@@ -23,12 +23,17 @@ public enum ErrorCode {
 	WRONG_PASSWORD("A senha está incorreta"),
 
 	// Not Found
+	ROLE_NOT_FOUND("O cargo não foi encontrado"),
+	USER_NOT_FOUND("O usuário não foi encontrado"),
 	AUTHENTICATION_NOT_FOUND("A autenticação não foi encontrada"),
 	
 	// Not Changed
+	ROLE_NOT_CHANGED("Os dados do cargo não foram alterados"),
 	AUTHENTICATION_NOT_CHANGED("Os dados da autenticação não foram alterados"),
 
 	// Already Exists
+	ROLE_ALREADY_EXISTS("O cargo já foi cadastrado"),
+	USER_ALREADY_EXISTS("O usuário já foi cadastrado"),
 	AUTHENTICATION_ALREADY_EXISTS("A autenticação já foi cadastrada");
 
 	private final String message;

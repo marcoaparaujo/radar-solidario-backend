@@ -1,12 +1,16 @@
 package com.radar.solidario.service;
 
+import com.radar.solidario.dto.LoginDTO;
+import com.radar.solidario.dto.token.TokenFRDTO;
+import com.radar.solidario.dto.token.TokenRDTO;
+
 public interface SecurityService {
 
 	void lock(Long id);
 
 	void unlock(Long id);
 
-	void enable(Long id);
+	TokenFRDTO login(LoginDTO loginDTO);
 
-	void unable(Long id);
+	TokenRDTO refresh(String token);
 }

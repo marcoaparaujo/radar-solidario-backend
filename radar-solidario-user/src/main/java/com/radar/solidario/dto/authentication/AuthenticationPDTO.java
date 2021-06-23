@@ -17,9 +17,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRDTO implements Serializable {
+public class AuthenticationPDTO implements Serializable {
 
-	private static final long serialVersionUID = 2932728917392452591L;
+	private static final long serialVersionUID = -6631235046493524493L;
 
 	@Email(message = "O campo 'E-mail' é inválido")
 	@NotNull(message = "O campo 'E-mail' é obrigatório")

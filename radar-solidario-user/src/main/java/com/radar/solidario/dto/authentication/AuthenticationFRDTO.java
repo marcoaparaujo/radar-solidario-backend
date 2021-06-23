@@ -1,12 +1,15 @@
 package com.radar.solidario.dto.authentication;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.radar.solidario.annotation.Password;
+import com.radar.solidario.dto.role.RoleHRDTO;
+import com.radar.solidario.dto.user.UserHRDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,9 +20,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthenticationRDTO implements Serializable {
+public class AuthenticationFRDTO implements Serializable {
 
 	private static final long serialVersionUID = 2932728917392452591L;
+
+	@NotNull(message = "O campo 'Id' é obrigatório")
+	private Long id;
 
 	@Email(message = "O campo 'E-mail' é inválido")
 	@NotNull(message = "O campo 'E-mail' é obrigatório")
@@ -29,4 +35,13 @@ public class AuthenticationRDTO implements Serializable {
 	@Password
 	@Size(min = 8, max = 40, message = "O campo 'Senha' deve conter entre 8 a 40 caracteres")
 	private String password;
+	
+	@NotNull(message = "O campo 'Bloqueado' é obrigatório")
+	private Boolean isLocked;
+	
+	@NotNull(message = "O campo 'Usuário' é obrigatório")
+	private UserHRDTO user;
+	
+	@NotNull(message = "O campo 'Cargos' é obrigatório")
+	private List<RoleHRDTO> role;
 }
