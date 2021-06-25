@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.radar.solidario.dto.authentication.AuthenticationFPDTO;
 import com.radar.solidario.dto.authentication.AuthenticationFRDTO;
-import com.radar.solidario.dto.authentication.AuthenticationRDTO;
+import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 import com.radar.solidario.dto.user.UserPDTO;
 import com.radar.solidario.entity.Authentication;
 import com.radar.solidario.entity.Role;
@@ -56,7 +56,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 	}
 
 	@Override
-	public AuthenticationRDTO include(UserPDTO userPDTO, List<Role> roles) {
+	public AuthenticationRPDTO include(UserPDTO userPDTO, List<Role> roles) {
 		log.info("Start - AuthenticationServiceImplementation.include - UserPDTO: {} - List<Role>: {}", userPDTO,
 				roles);
 
@@ -69,7 +69,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 
 		authentication = this.authenticationRepository.save(authentication);
 
-		AuthenticationRDTO authenticationRDTO = this.mapper.map(authentication, AuthenticationRDTO.class);
+		AuthenticationRPDTO authenticationRDTO = this.mapper.map(authentication, AuthenticationRPDTO.class);
 		authenticationRDTO.setPassword(userPDTO.getAuthentication().getPassword());
 
 		log.info("End - AuthenticationServiceImplementation.include - AuthenticationRDTO: {}", authenticationRDTO);
@@ -77,7 +77,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 	}
 
 	@Override
-	public AuthenticationRDTO edit(AuthenticationFPDTO authenticationFPDTO) {
+	public AuthenticationRPDTO edit(AuthenticationFPDTO authenticationFPDTO) {
 		log.info("Start - AuthenticationServiceImplementation.edit - AuthenticationFPDTO: {}", authenticationFPDTO);
 
 		this.authenticationProcessor.exists(authenticationFPDTO.getEmail());
@@ -89,7 +89,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 		authentication.setPassword(encodedPassword);
 
 		authentication = this.authenticationRepository.save(authentication);
-		AuthenticationRDTO authenticationRDTO = this.mapper.map(authentication, AuthenticationRDTO.class);
+		AuthenticationRPDTO authenticationRDTO = this.mapper.map(authentication, AuthenticationRPDTO.class);
 
 		log.info("End - AuthenticationServiceImplementation.edit - AuthenticationFRPDTO: {}", authenticationRDTO);
 		return authenticationRDTO;

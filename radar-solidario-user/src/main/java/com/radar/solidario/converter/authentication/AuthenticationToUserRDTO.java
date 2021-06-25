@@ -3,7 +3,7 @@ package com.radar.solidario.converter.authentication;
 import org.modelmapper.Converter;
 import org.modelmapper.spi.MappingContext;
 
-import com.radar.solidario.dto.authentication.AuthenticationRDTO;
+import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 import com.radar.solidario.dto.user.UserRDTO;
 import com.radar.solidario.entity.Authentication;
 
@@ -13,7 +13,7 @@ public class AuthenticationToUserRDTO implements Converter<Authentication, UserR
 	public UserRDTO convert(MappingContext<Authentication, UserRDTO> context) {
 		Authentication source = context.getSource();
 
-		AuthenticationRDTO authentication = AuthenticationRDTO.builder().email(source.getEmail())
+		AuthenticationRPDTO authentication = AuthenticationRPDTO.builder().email(source.getEmail())
 				.password(source.getPassword()).build();
 
 		return UserRDTO.builder().name(source.getUser().getName()).birth(source.getUser().getBirth())

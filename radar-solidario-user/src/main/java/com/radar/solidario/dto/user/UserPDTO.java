@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 import com.radar.solidario.constant.Gender;
 import com.radar.solidario.dto.IdentificatorDTO;
-import com.radar.solidario.dto.authentication.AuthenticationPDTO;
+import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -48,5 +48,5 @@ public class UserPDTO implements Serializable {
 	private IdentificatorDTO charity;
 	
 	@NotNull(message = "O campo 'Autenticação' é obrigatório")
-	private AuthenticationPDTO authentication;
+	private AuthenticationRPDTO authentication;
 }

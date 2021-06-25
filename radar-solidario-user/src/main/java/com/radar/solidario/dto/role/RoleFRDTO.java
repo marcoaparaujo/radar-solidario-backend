@@ -6,7 +6,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.radar.solidario.dto.authentication.AuthenticationRDTO;
+import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,5 +29,5 @@ public class RoleFRDTO implements Serializable {
 	private String name;
 
 	@NotNull(message = "O campo 'Autenticação' é obrigatório")
-	private List<AuthenticationRDTO> authentication;
+	private List<AuthenticationRPDTO> authentication;
 }

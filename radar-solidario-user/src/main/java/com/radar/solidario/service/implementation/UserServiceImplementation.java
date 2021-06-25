@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.radar.solidario.dto.LoginDTO;
-import com.radar.solidario.dto.authentication.AuthenticationRDTO;
+import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 import com.radar.solidario.dto.user.UserPDTO;
 import com.radar.solidario.entity.Role;
 import com.radar.solidario.service.AuthenticationService;
@@ -37,7 +37,7 @@ public class UserServiceImplementation implements UserService {
 		Role role = this.roleProcessor.exists("VOLUNTARY");
 		List<Role> roles = Arrays.asList(role);
 
-		AuthenticationRDTO authenticationRDTO = this.authenticationService.include(userPDTO, roles);
+		AuthenticationRPDTO authenticationRDTO = this.authenticationService.include(userPDTO, roles);
 		LoginDTO loginDTO = this.mapper.map(authenticationRDTO, LoginDTO.class);
 
 		log.info("End - UserServiceImplementation.include - LoginDTO: {}", loginDTO);

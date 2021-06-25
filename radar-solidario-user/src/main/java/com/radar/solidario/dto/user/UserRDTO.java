@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.radar.solidario.constant.Gender;
-import com.radar.solidario.dto.authentication.AuthenticationRDTO;
+import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 import com.radar.solidario.dto.charity.CharityRDTO;
 
 import lombok.AllArgsConstructor;
@@ -48,5 +48,5 @@ public class UserRDTO implements Serializable {
 	private CharityRDTO charity;
 	
 	@NotNull(message = "O campo 'Autenticação' é obrigatório")
-	private AuthenticationRDTO authentication;
+	private AuthenticationRPDTO authentication;
 }
