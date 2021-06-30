@@ -44,6 +44,10 @@ public class Family implements Serializable {
 	@Column(name = "nis", nullable = false)
 	@Size(min = 11, max = 11, message = "O campo 'NIS' deve conter 11 caracteres")
 	private Long nis;
+	
+	@Column(name = "cpf", unique = true, nullable = false)
+	@Size(min = 14, max = 14, message = "O campo 'CPF' deve conter 14 caracteres")
+	private String cpf;
 
 	@ToString.Exclude
 	@OneToOne(cascade = CascadeType.ALL)
