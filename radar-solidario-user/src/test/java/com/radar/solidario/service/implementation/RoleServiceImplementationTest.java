@@ -30,7 +30,7 @@ import properties.role.RoleProperties;
 @SpringBootTest
 @ActiveProfiles("test")
 @DisplayName("ServiceImplementation - Role")
-public class RoleServiceImplementation extends RoleProperties {
+public class RoleServiceImplementationTest extends RoleProperties {
 
 	@MockBean
 	private RoleRepository roleRepository;

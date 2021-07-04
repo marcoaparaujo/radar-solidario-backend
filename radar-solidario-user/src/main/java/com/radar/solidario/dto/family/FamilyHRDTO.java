@@ -26,7 +26,7 @@ public class FamilyHRDTO implements Serializable {
 
 	@NotBlank(message = "O campo 'NIS' é obrigatório")
 	@Size(min = 11, max = 11, message = "O campo 'NIS' deve conter 11 caracteres")
-	private Long nis;
+	private String nis;
 
 	@CPF(message = "O campo 'CPF' é inválido")
 	@Size(min = 14, max = 14, message = "O campo 'CPF' deve conter 14 caracteres")
