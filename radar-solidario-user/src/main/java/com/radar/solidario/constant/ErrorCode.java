@@ -26,6 +26,7 @@ public enum ErrorCode {
 	ROLE_NOT_FOUND("O cargo não foi encontrado"),
 	USER_NOT_FOUND("O usuário não foi encontrado"),
 	AUTHENTICATION_NOT_FOUND("A autenticação não foi encontrada"),
+	FOODSTAMP_NOT_FOUND("A cesta não foi encontrada"),
 	
 	// Not Changed
 	ROLE_NOT_CHANGED("Os dados do cargo não foram alterados"),

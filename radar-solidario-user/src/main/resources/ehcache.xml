@@ -3,11 +3,11 @@
 	<cache alias="tasks">
 		<key-type>org.springframework.cache.interceptor.SimpleKey</key-type>
 		<value-type>java.util.List</value-type>
-		
+
 		<expiry>
 			<ttl unit="minutes">10</ttl>
 		</expiry>
-		
+
 		<resources>
 			<heap unit="kB">10000</heap>
 		</resources>

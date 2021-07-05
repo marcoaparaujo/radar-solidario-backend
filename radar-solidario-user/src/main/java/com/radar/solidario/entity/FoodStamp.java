@@ -1,6 +1,7 @@
 package com.radar.solidario.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,9 +31,21 @@ public class FoodStamp implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "date", nullable = false)
+	@Column(name = "lenght", nullable = false)
+	@NotNull(message = "O campo 'Comprimento' é obrigatório")
+	private Integer lenght;
+
+	@Column(name = "weight", nullable = false)
+	@NotNull(message = "O campo 'Peso' é obrigatório")
+	private Double weight;
+
+	@Column(name = "isAlble", nullable = false)
+	@NotNull(message = "O campo ' ' é obrigatório")
+	private boolean isAble;
+
+	@Column(name = "date", nullable = false, columnDefinition = "DATE")
 	@NotNull(message = "O campo 'Data' é obrigatório")
-	private Integer date;
+	private LocalDate date;
 
 //	@ToString.Exclude
 //	@OneToOne(mappedBy = "donate")
