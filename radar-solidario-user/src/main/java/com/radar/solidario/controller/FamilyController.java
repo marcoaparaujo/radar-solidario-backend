@@ -44,6 +44,32 @@ public class FamilyController {
 		return ResponseEntity.ok(response);
 	}
 
+	@Cacheable("family")
+	@GetMapping(params = "nis")
+	public ResponseEntity<Response<FamilyRDTO>> findByNis(@RequestParam String nis) {
+		log.info("Start - FamilyController.findByNis - NIS: {}", nis);
+		Response<FamilyRDTO> response = new Response<>();
+
+		FamilyRDTO family = this.familyService.findByNis(nis);
+		response.setData(family);
+
+		log.info("End - FamilyController.findByNis - FamilyRDTO: {}", family);
+		return ResponseEntity.ok(response);
+	}
+
+	@Cacheable("family")
+	@GetMapping(params = "cpf")
+	public ResponseEntity<Response<FamilyRDTO>> findByCpf(@RequestParam String cpf) {
+		log.info("Start - FamilyController.findByCpf - CPF: {}", cpf);
+		Response<FamilyRDTO> response = new Response<>();
+
+		FamilyRDTO family = this.familyService.findByCpf(cpf);
+		response.setData(family);
+
+		log.info("End - FamilyController.findByCpf - FamilyRDTO: {}", family);
+		return ResponseEntity.ok(response);
+	}
+
 	@PostMapping
 	public ResponseEntity<Response<FamilyHRDTO>> include(@RequestBody @Valid FamilyPDTO familyPDTO) {
 		log.info("Start - FamilyController.register - FamilyPDTO: {}", familyPDTO);

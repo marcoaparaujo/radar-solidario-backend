@@ -7,7 +7,7 @@ import com.radar.solidario.dto.family.FamilyRDTO;
 public interface FamilyService {
 	FamilyRDTO findById(Long id);
 	
-	FamilyRDTO findByNis(Long nis);
+	FamilyRDTO findByNis(String nis);
 	
 	FamilyRDTO findByCpf(String cpf);
 	

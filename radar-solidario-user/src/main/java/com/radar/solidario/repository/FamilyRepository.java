@@ -12,7 +12,7 @@ import com.radar.solidario.entity.Family;
 public interface FamilyRepository extends JpaRepository<Family, Long> {
 
 	@Transactional(readOnly = true)
-	Optional<Family> findByNis(Long nis);
+	Optional<Family> findByNis(String nis);
 
 	@Transactional(readOnly = true)
 	Optional<Family> findByCpf(String cpf);

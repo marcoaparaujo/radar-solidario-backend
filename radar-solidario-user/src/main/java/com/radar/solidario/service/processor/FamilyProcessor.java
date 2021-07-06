@@ -31,8 +31,8 @@ public class FamilyProcessor {
 		return optFamily.get();
 	}
 
-	public Family exists(String cpf) {
-		log.info("Start - FamilyProcessor.exists - CPF: {}", cpf);
+	public Family existsCpf(String cpf) {
+		log.info("Start - FamilyProcessor.existsCpf - CPF: {}", cpf);
 
 		Optional<Family> optFamily = this.familyRepository.findByCpf(cpf);
 		if (optFamily.isEmpty()) {
@@ -40,11 +40,11 @@ public class FamilyProcessor {
 			throw new FamilyNotFoundException();
 		}
 
-		log.info("End - FamilyProcessor.exists - Family: {}", optFamily.get());
+		log.info("End - FamilyProcessor.existsCpf - Family: {}", optFamily.get());
 		return optFamily.get();
 	}
 
-	public Family existsNis(Long nis) {
+	public Family existsNis(String nis) {
 		log.info("Start - FamilyProcessor.existsNis - NIS: {}", nis);
 
 		Optional<Family> optFamily = this.familyRepository.findByNis(nis);
