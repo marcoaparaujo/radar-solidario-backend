@@ -16,4 +16,7 @@ public interface FamilyRepository extends JpaRepository<Family, Long> {
 
 	@Transactional(readOnly = true)
 	Optional<Family> findByCpf(String cpf);
+	
+	@Transactional(readOnly = true)
+	Optional<Family> findByNisOrCpf(String nis, String cpf);
 }

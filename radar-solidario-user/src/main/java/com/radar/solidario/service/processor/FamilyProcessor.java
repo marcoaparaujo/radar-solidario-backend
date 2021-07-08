@@ -61,10 +61,8 @@ public class FamilyProcessor {
 	public void alreadyExists(String nis, String cpf) {
 		log.info("Start - FamilyProcessor.alreadyExists - NIS {}, CPF: {}", nis, cpf);
 
-		Optional<Family> optFamilyNis = this.familyRepository.findByNis(nis);
-		Optional<Family> optFamilyCpf = this.familyRepository.findByCpf(nis);
-
-		if (optFamilyNis.isPresent() || optFamilyCpf.isPresent()) {
+		Optional<Family> optFamily = this.familyRepository.findByNisOrCpf(nis, cpf);
+		if (optFamily.isPresent()) {
 			log.error("FamilyAlreadyExistsException - NIS {}, CPF: {}", nis, cpf);
 			throw new FamilyAlreadyExistsException();
 		}
