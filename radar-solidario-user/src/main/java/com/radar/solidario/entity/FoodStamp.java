@@ -20,8 +20,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "food-stamp")
-@Entity(name = "food-stamp")
+@Table(name = "food_stamp")
+@Entity(name = "food_stamp")
 public class FoodStamp implements Serializable {
 
 	private static final long serialVersionUID = -8506472921384348180L;
