@@ -1,14 +1,9 @@
 package com.radar.solidario.service.implementation;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.radar.solidario.dto.LoginDTO;
-import com.radar.solidario.dto.role.RoleHRDTO;
 import com.radar.solidario.dto.token.TokenFRDTO;
 import com.radar.solidario.dto.token.TokenRDTO;
 import com.radar.solidario.entity.Authentication;
@@ -23,9 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class SecurityServiceImplementation implements SecurityService {
-
-	@Autowired
-	private ModelMapper mapper;
 
 	@Autowired
 	private JwtUtil jwtTokenUtil;
@@ -47,11 +39,8 @@ public class SecurityServiceImplementation implements SecurityService {
 		this.securityProcessor.matchPassword(loginDTO.getPassword(), authentication.getPassword());
 
 		String token = this.securityProcessor.authenticate(loginDTO.getEmail(), loginDTO.getPassword());
-		List<RoleHRDTO> roles = authentication.getRole().stream().map(role -> this.mapper.map(role, RoleHRDTO.class))
-				.collect(Collectors.toList());
-
-		TokenFRDTO tokenFRDTO = TokenFRDTO.builder().name(authentication.getUser().getName()).token(token).roles(roles)
-				.build();
+		TokenFRDTO tokenFRDTO = TokenFRDTO.builder().name(authentication.getUser().getName()).token(token)
+				.roles(authentication.getRole()).build();
 
 		log.info("End - SecurityServiceImplementation.login - TokenFRDTO: {}", tokenFRDTO);
 		return tokenFRDTO;

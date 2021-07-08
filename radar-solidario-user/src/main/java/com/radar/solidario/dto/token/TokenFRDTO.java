@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.radar.solidario.dto.role.RoleHRDTO;
+import com.radar.solidario.constant.AuthenticationRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,5 +30,5 @@ public class TokenFRDTO implements Serializable {
 	private String token;
 
 	@NotNull(message = "O campo 'Cargos' é obrigatório")
-	private List<RoleHRDTO> roles;
+	private List<AuthenticationRole> roles;
 }

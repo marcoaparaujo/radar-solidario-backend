@@ -6,12 +6,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.radar.solidario.constant.AuthenticationRole;
 import com.radar.solidario.dto.authentication.AuthenticationFPDTO;
 import com.radar.solidario.dto.authentication.AuthenticationFRDTO;
 import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 import com.radar.solidario.dto.user.UserPDTO;
 import com.radar.solidario.entity.Authentication;
-import com.radar.solidario.entity.Role;
 import com.radar.solidario.repository.AuthenticationRepository;
 import com.radar.solidario.service.AuthenticationService;
 import com.radar.solidario.service.processor.AuthenticationProcessor;
@@ -56,8 +56,8 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 	}
 
 	@Override
-	public AuthenticationRPDTO include(UserPDTO userPDTO, List<Role> roles) {
-		log.info("Start - AuthenticationServiceImplementation.include - UserPDTO: {} - List<Role>: {}", userPDTO,
+	public AuthenticationRPDTO include(UserPDTO userPDTO, List<AuthenticationRole> roles) {
+		log.info("Start - AuthenticationServiceImplementation.include - UserPDTO: {} - List<AuthenticationRole>: {}", userPDTO,
 				roles);
 
 		Authentication authentication = this.mapper.map(userPDTO, Authentication.class);

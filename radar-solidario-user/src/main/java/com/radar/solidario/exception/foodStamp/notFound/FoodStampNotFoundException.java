@@ -1,4 +1,4 @@
-package com.radar.solidario.exception.foodStamo.notFound;
+package com.radar.solidario.exception.foodStamp.notFound;
 
 import com.radar.solidario.constant.ErrorCode;
 

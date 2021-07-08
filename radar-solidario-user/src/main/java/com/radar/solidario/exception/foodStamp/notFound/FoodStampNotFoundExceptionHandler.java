@@ -1,4 +1,4 @@
-package com.radar.solidario.exception.foodStamo.notFound;
+package com.radar.solidario.exception.foodStamp.notFound;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -18,8 +18,8 @@ public class AuthenticationFRDTOToJwtUser implements Converter<AuthenticationFRD
 		AuthenticationFRDTO source = context.getSource();
 
 		List<GrantedAuthority> authorities = source.getRole().stream()
-				.map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-		
+				.map(role -> new SimpleGrantedAuthority(role.name())).collect(Collectors.toList());
+
 		return JwtUser.builder().id(source.getId()).email(source.getEmail()).password(source.getPassword())
 				.authorities(authorities).build();
 	}

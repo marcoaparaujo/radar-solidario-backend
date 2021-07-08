@@ -1,17 +1,16 @@
 package properties.authentication;
 
+import java.util.Arrays;
 import java.util.List;
 
+import com.radar.solidario.constant.AuthenticationRole;
 import com.radar.solidario.dto.token.TokenRDTO;
 import com.radar.solidario.entity.Authentication;
-import com.radar.solidario.entity.Role;
-
-import properties.role.RoleInstance;
 
 public class AuthenticationInstance extends AuthenticationProperties {
 
 	public static Authentication instace() {
-		List<Role> roles = RoleInstance.instaceVoluntaryAndAdministrator();
+		List<AuthenticationRole> roles = Arrays.asList(AuthenticationRole.VOLUNTARY);
 
 		Authentication authentication = new Authentication();
 		authentication.setId(ID);

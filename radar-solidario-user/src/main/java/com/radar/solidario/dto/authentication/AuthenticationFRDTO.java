@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.radar.solidario.annotation.Password;
-import com.radar.solidario.dto.role.RoleHRDTO;
+import com.radar.solidario.constant.AuthenticationRole;
 import com.radar.solidario.dto.user.UserHRDTO;
 
 import lombok.AllArgsConstructor;
@@ -35,13 +35,13 @@ public class AuthenticationFRDTO implements Serializable {
 	@Password
 	@Size(min = 8, max = 40, message = "O campo 'Senha' deve conter entre 8 a 40 caracteres")
 	private String password;
-	
+
 	@NotNull(message = "O campo 'Bloqueado' é obrigatório")
 	private Boolean isLocked;
-	
+
 	@NotNull(message = "O campo 'Usuário' é obrigatório")
 	private UserHRDTO user;
-	
+
 	@NotNull(message = "O campo 'Cargos' é obrigatório")
-	private List<RoleHRDTO> role;
+	private List<AuthenticationRole> role;
 }
