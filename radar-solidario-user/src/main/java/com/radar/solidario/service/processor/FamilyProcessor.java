@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.radar.solidario.entity.Family;
+import com.radar.solidario.exception.family.alreadyExists.FamilyAlreadyExistsException;
 import com.radar.solidario.exception.family.notFound.FamilyNotFoundException;
 import com.radar.solidario.repository.FamilyRepository;
 
@@ -55,5 +56,19 @@ public class FamilyProcessor {
 
 		log.info("End - FamilyProcessor.existsNis - Family: {}", optFamily.get());
 		return optFamily.get();
+	}
+
+	public void alreadyExists(String nis, String cpf) {
+		log.info("Start - FamilyProcessor.alreadyExists - NIS {}, CPF: {}", nis, cpf);
+
+		Optional<Family> optFamilyNis = this.familyRepository.findByNis(nis);
+		Optional<Family> optFamilyCpf = this.familyRepository.findByCpf(nis);
+
+		if (optFamilyNis.isPresent() || optFamilyCpf.isPresent()) {
+			log.error("FamilyAlreadyExistsException - NIS {}, CPF: {}", nis, cpf);
+			throw new FamilyAlreadyExistsException();
+		}
+
+		log.info("End - FamilyProcessor.alreadyExists");
 	}
 }

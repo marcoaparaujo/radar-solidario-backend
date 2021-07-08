@@ -64,6 +64,8 @@ public class FamilyServiceImplementation implements FamilyService {
 	public FamilyHRDTO include(FamilyPDTO familyPDTO) {
 		log.info("Start - FamilyServiceImplementation.include - FamilyPDTO: {}", familyPDTO);
 
+		this.familyProcessor.alreadyExists(familyPDTO.getNis(), familyPDTO.getCpf());
+
 		Family family = this.mapper.map(familyPDTO, Family.class);
 		family.getAddress().setFamily(family);
 		family = this.familyRepository.save(family);

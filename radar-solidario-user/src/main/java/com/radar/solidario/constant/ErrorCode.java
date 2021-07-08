@@ -36,6 +36,7 @@ public enum ErrorCode {
 	// Already Exists
 	ROLE_ALREADY_EXISTS("O cargo solicitado já se encontra na nossa base de dados"),
 	USER_ALREADY_EXISTS("O usuário solicitado já se encontra na nossa base de dados"),
+	FAMILY_ALREADY_EXISTS("A família solicitada já se encontra na nossa base de dados"),
 	AUTHENTICATION_ALREADY_EXISTS("A autenticação solicitado já se encontra na nossa base de dados");
 
 	private final String message;
