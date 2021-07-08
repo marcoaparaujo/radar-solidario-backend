@@ -9,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -53,9 +54,10 @@ public class Authentication implements Serializable {
 	@Column(name = "isLocked", nullable = false)
 	private Boolean isLocked;
 
+	@ToString.Exclude
 	@Enumerated(EnumType.STRING)
 	@Column(name = "role", nullable = false)
-	@ElementCollection(targetClass = AuthenticationRole.class)
+	@ElementCollection(targetClass = AuthenticationRole.class, fetch = FetchType.EAGER)
 	@JoinTable(name = "role_authentication", joinColumns = @JoinColumn(name = "authentication_id", referencedColumnName = "id"))
 	private List<AuthenticationRole> role;
 
