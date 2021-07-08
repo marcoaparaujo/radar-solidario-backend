@@ -65,6 +65,7 @@ public class FamilyServiceImplementation implements FamilyService {
 		log.info("Start - FamilyServiceImplementation.include - FamilyPDTO: {}", familyPDTO);
 
 		Family family = this.mapper.map(familyPDTO, Family.class);
+		family.getAddress().setFamily(family);
 		family = this.familyRepository.save(family);
 
 		FamilyHRDTO familyHRDTO = this.mapper.map(family, FamilyHRDTO.class);

@@ -2,6 +2,7 @@ package com.radar.solidario.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,10 +34,6 @@ public class Address implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name", nullable = false)
-	@Size(min = 1, max = 70, message = "O campo 'Nome' deve conter entre 1 e 70 caracteres")
-	private String name;
-
 	@Column(name = "cep", nullable = false)
 	@Size(min = 9, max = 9, message = "O campo 'CEP' deve conter 9 caracteres")
 	private String cep;
@@ -58,11 +55,11 @@ public class Address implements Serializable {
 	private String complement;
 
 	@Column(name = "phone", nullable = true)
-	@Size(min = 13, max = 13, message = "O campo 'Nº de Telefone' deve conter 13 caracteres")
+	@Size(min = 14, max = 14, message = "O campo 'Nº de Telefone' deve conter 14 caracteres")
 	private String phone;
 
 	@ToString.Exclude
-	@OneToOne(mappedBy = "address")
+	@OneToOne(mappedBy = "address", cascade = CascadeType.PERSIST)
 	private Family family;
 
 	@ToString.Exclude

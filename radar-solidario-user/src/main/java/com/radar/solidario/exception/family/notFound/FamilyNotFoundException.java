@@ -7,6 +7,6 @@ public class FamilyNotFoundException extends RuntimeException {
 	private static final long serialVersionUID = 6002342690048300285L;
 
 	public FamilyNotFoundException() {
-		super(ErrorCode.AUTHENTICATION_NOT_FOUND.getMessage());
+		super(ErrorCode.FAMILY_NOT_FOUND.getMessage());
 	}
 }

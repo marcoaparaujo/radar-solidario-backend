@@ -8,9 +8,9 @@ import lombok.Getter;
 public enum ErrorCode {
 
 	// Misc.
-	INVALID_REQUEST("Requisição inválida"),
+	INVALID_REQUEST("A requisição efetuada é inválida"),
 	VALIDATION_FAILED("A validação falhou"),
-	INTERNAL_SERVER_ERROR("Erro interno do servidor"),
+	INTERNAL_SERVER_ERROR("Ocorreu um erro interno nos serviçoes, tente novamente em alguns instantes"),
 	ACCESS_DENIED("Acesso negado. Você deve estar autenticado no sistema para acessar o serviço solicitado"),
 
 	// Token
@@ -19,23 +19,24 @@ public enum ErrorCode {
 	TOKEN_TYPE_INVALID("O tipo do token é inválido"),
 	
 	// Account
-	LOCKED_ACCOUNT("A conta está banida"),
-	WRONG_PASSWORD("A senha está incorreta"),
+	LOCKED_ACCOUNT("A conta está disponível, contate um administrador para maiores informações"),
+	WRONG_PASSWORD("O email e/ou senha estão incorretos"),
 
 	// Not Found
-	ROLE_NOT_FOUND("O cargo não foi encontrado"),
-	USER_NOT_FOUND("O usuário não foi encontrado"),
-	AUTHENTICATION_NOT_FOUND("A autenticação não foi encontrada"),
-	FOODSTAMP_NOT_FOUND("A cesta não foi encontrada"),
+	ROLE_NOT_FOUND("O cargo solicitado não foi encontrado"),
+	USER_NOT_FOUND("O usuário solicitado não foi encontrado"),
+	FAMILY_NOT_FOUND("A família solicitada não foi encontrada"),
+	FOODSTAMP_NOT_FOUND("A cesta solicitada não foi encontrada"),
+	AUTHENTICATION_NOT_FOUND("A autenticação solicitada não foi encontrada"),
 	
 	// Not Changed
 	ROLE_NOT_CHANGED("Os dados do cargo não foram alterados"),
 	AUTHENTICATION_NOT_CHANGED("Os dados da autenticação não foram alterados"),
 
 	// Already Exists
-	ROLE_ALREADY_EXISTS("O cargo já foi cadastrado"),
-	USER_ALREADY_EXISTS("O usuário já foi cadastrado"),
-	AUTHENTICATION_ALREADY_EXISTS("A autenticação já foi cadastrada");
+	ROLE_ALREADY_EXISTS("O cargo solicitado já se encontra na nossa base de dados"),
+	USER_ALREADY_EXISTS("O usuário solicitado já se encontra na nossa base de dados"),
+	AUTHENTICATION_ALREADY_EXISTS("A autenticação solicitado já se encontra na nossa base de dados");
 
 	private final String message;
 }

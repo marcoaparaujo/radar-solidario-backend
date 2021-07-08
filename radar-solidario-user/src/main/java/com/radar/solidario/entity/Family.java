@@ -50,7 +50,7 @@ public class Family implements Serializable {
 	private String cpf;
 
 	@ToString.Exclude
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.PERSIST)
 	@JoinTable(name = "address_family", joinColumns = {
 			@JoinColumn(name = "address_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "family_id", referencedColumnName = "id") })

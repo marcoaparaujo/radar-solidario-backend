@@ -70,6 +70,20 @@ public class FamilyController {
 		return ResponseEntity.ok(response);
 	}
 
+	@Cacheable("family")
+	@GetMapping(params = "nisCpf")
+	public ResponseEntity<Response<FamilyRDTO>> findByNisOrCpf(@RequestParam String nisCpf) {
+		log.info("Start - FamilyController.findByNisOrCpf - NIS or CPF: {}", nisCpf);
+		Response<FamilyRDTO> response = new Response<>();
+
+		FamilyRDTO family = nisCpf.contains(".") ? this.familyService.findByCpf(nisCpf)
+				: this.familyService.findByNis(nisCpf);
+		response.setData(family);
+
+		log.info("End - FamilyController.findByNisOrCpf - FamilyRDTO: {}", family);
+		return ResponseEntity.ok(response);
+	}
+
 	@PostMapping
 	public ResponseEntity<Response<FamilyHRDTO>> include(@RequestBody @Valid FamilyPDTO familyPDTO) {
 		log.info("Start - FamilyController.register - FamilyPDTO: {}", familyPDTO);
