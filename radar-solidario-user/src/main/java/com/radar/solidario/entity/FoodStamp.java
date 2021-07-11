@@ -41,7 +41,7 @@ public class FoodStamp implements Serializable {
 
 	@Column(name = "isAlble", nullable = false)
 	@NotNull(message = "O campo ' ' é obrigatório")
-	private boolean isAble;
+	private Boolean isAble;
 
 	@Column(name = "date", nullable = false, columnDefinition = "DATE")
 	@NotNull(message = "O campo 'Data' é obrigatório")

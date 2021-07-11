@@ -24,13 +24,13 @@ public class SecurityProcessor {
 	private JwtUtil jwtTokenUtil;
 
 	@Autowired
-	private AuthenticationProcessor authenticationProcessor;
+	private UserDetailsService userDetailsService;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
-	private UserDetailsService userDetailsService;
+	private AuthenticationProcessor authenticationProcessor;
 
 	public String authenticate(String email, String password) {
 		log.info("Start - SecurityProcessor.authenticate - Email: {}, Password: -", email);
