@@ -21,6 +21,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.radar.solidario.constant.ErrorCode;
 import com.radar.solidario.entity.Authentication;
 import com.radar.solidario.exception.authentication.locked.LockedAccountException;
+import com.radar.solidario.exception.authentication.wrongPassword.WrongPasswordException;
 import com.radar.solidario.repository.AuthenticationRepository;
 import com.radar.solidario.service.AuthenticationService;
 import com.radar.solidario.util.JwtUtil;
@@ -101,5 +102,15 @@ public class SecurityProcessorTest extends AuthenticationProperties {
 		});
 
 		assertEquals(ErrorCode.LOCKED_ACCOUNT.getMessage(), exception.getMessage());
+	}
+
+	@Test
+	@DisplayName("Check if account was locked with wrong password")
+	public void matchPasswordWrongPasswordException() {
+		WrongPasswordException exception = assertThrows(WrongPasswordException.class, () -> {
+			this.securityProcessor.matchPassword(PASSWORD, WRONG_PASSWORD);
+		});
+
+		assertEquals(ErrorCode.WRONG_PASSWORD.getMessage(), exception.getMessage());
 	}
 }

@@ -85,7 +85,7 @@ public class UserProcessorTest extends UserProperties {
 		when(this.userRepository.findByCpf(WRONG_CPF)).thenReturn(Optional.of(this.user));
 
 		UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
-			this.userProcessor.exists(ID);
+			this.userProcessor.exists(CPF);
 		});
 
 		assertEquals(ErrorCode.USER_NOT_FOUND.getMessage(), exception.getMessage());
