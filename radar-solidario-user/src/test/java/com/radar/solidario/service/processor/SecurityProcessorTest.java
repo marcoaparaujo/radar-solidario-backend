@@ -3,12 +3,14 @@ package com.radar.solidario.service.processor;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mockStatic;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -24,6 +26,7 @@ import com.radar.solidario.exception.authentication.locked.LockedAccountExceptio
 import com.radar.solidario.exception.authentication.wrongPassword.WrongPasswordException;
 import com.radar.solidario.repository.AuthenticationRepository;
 import com.radar.solidario.service.AuthenticationService;
+import com.radar.solidario.util.Encryptor;
 import com.radar.solidario.util.JwtUtil;
 
 import properties.authentication.AuthenticationInstance;
@@ -105,7 +108,19 @@ public class SecurityProcessorTest extends AuthenticationProperties {
 	}
 
 	@Test
-	@DisplayName("Check if account was locked with wrong password")
+	@DisplayName("Check if password is match")
+	public void matchPassword() {
+		String encoded = Encryptor.encode(PASSWORD);
+
+		MockedStatic<Encryptor> encryptorMock = mockStatic(Encryptor.class);
+		encryptorMock.when(() -> Encryptor.match(PASSWORD, encoded)).thenReturn(true);
+
+		this.securityProcessor.matchPassword(PASSWORD, encoded);
+		encryptorMock.verify(() -> Encryptor.match(PASSWORD, encoded));
+	}
+
+	@Test
+	@DisplayName("Check if password is match with a wrong password")
 	public void matchPasswordWrongPasswordException() {
 		WrongPasswordException exception = assertThrows(WrongPasswordException.class, () -> {
 			this.securityProcessor.matchPassword(PASSWORD, WRONG_PASSWORD);
