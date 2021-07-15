@@ -47,7 +47,7 @@ public class AuthenticationProcessorTest extends AuthenticationProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch an authentication by Id")
+	@DisplayName("Fetch an authentication")
 	public void exists() {
 		when(this.authenticationRepository.findById(ID)).thenReturn(Optional.of(this.authentication));
 
@@ -58,7 +58,7 @@ public class AuthenticationProcessorTest extends AuthenticationProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a non existent authentication by Id")
+	@DisplayName("Fetch a non existent authentication")
 	public void existsNotFound() {
 		when(this.authenticationRepository.findById(WRONG_ID)).thenReturn(Optional.of(this.authentication));
 
@@ -70,7 +70,7 @@ public class AuthenticationProcessorTest extends AuthenticationProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a authentication by email")
+	@DisplayName("Fetch an authentication by email")
 	public void existsEmail() {
 		when(this.authenticationRepository.findByEmail(EMAIL)).thenReturn(Optional.of(this.authentication));
 
@@ -93,17 +93,17 @@ public class AuthenticationProcessorTest extends AuthenticationProperties {
 	}
 
 	@Test
-	@DisplayName("Check if user already exists by email")
+	@DisplayName("Check if authentication already exists")
 	public void alreadyExists() {
-		when(this.authenticationRepository.findByEmail(WRONG_EMAIL)).thenReturn(Optional.of(this.authentication));
+		when(this.authenticationRepository.findByEmail(EMAIL)).thenReturn(Optional.empty());
 
 		this.authenticationProcessor.alreadyExists(EMAIL);
 		verify(this.authenticationRepository, times(1)).findByEmail(EMAIL);
 	}
 
 	@Test
-	@DisplayName("Check if user already exists by email with existent authentication")
-	public void alreadyExistsAuthenticationAlreadyExists() {
+	@DisplayName("Check if authentication already exists with an existent authentication")
+	public void alreadyExistsAuthenticationAlreadyExistsException() {
 		when(this.authenticationRepository.findByEmail(EMAIL)).thenReturn(Optional.of(this.authentication));
 
 		AuthenticationAlreadyExistsException exception = assertThrows(AuthenticationAlreadyExistsException.class,

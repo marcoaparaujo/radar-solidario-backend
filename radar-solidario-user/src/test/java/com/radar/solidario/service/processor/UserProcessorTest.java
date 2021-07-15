@@ -46,7 +46,7 @@ public class UserProcessorTest extends UserProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a user by Id")
+	@DisplayName("Fetch an user")
 	public void exists() {
 		when(this.userRepository.findById(ID)).thenReturn(Optional.of(this.user));
 
@@ -57,9 +57,9 @@ public class UserProcessorTest extends UserProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a non existent user by Id")
+	@DisplayName("Fetch a non existent user")
 	public void existsNotFound() {
-		when(this.userRepository.findById(WRONG_ID)).thenReturn(Optional.of(this.user));
+		when(this.userRepository.findById(ID)).thenReturn(Optional.empty());
 
 		UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
 			this.userProcessor.exists(ID);
@@ -69,7 +69,7 @@ public class UserProcessorTest extends UserProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a user by CPF")
+	@DisplayName("Fetch an user by CPF")
 	public void existsCpf() {
 		when(this.userRepository.findByCpf(CPF)).thenReturn(Optional.of(this.user));
 
@@ -82,7 +82,7 @@ public class UserProcessorTest extends UserProperties {
 	@Test
 	@DisplayName("Fetch a non existent user by CPF")
 	public void existsCpfNotFound() {
-		when(this.userRepository.findByCpf(WRONG_CPF)).thenReturn(Optional.of(this.user));
+		when(this.userRepository.findByCpf(CPF)).thenReturn(Optional.empty());
 
 		UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
 			this.userProcessor.exists(CPF);
@@ -94,6 +94,8 @@ public class UserProcessorTest extends UserProperties {
 	@Test
 	@DisplayName("Check if user already exists by CPF")
 	public void findByNisOrCpf() {
+		when(this.userRepository.findByCpf(CPF)).thenReturn(Optional.empty());
+		
 		this.userProcessor.alreadyExists(CPF);
 
 		verify(this.userRepository, times(1)).findByCpf(CPF);

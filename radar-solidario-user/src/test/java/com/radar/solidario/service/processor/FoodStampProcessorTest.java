@@ -45,7 +45,7 @@ public class FoodStampProcessorTest extends FoodStampProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a food stamp by Id")
+	@DisplayName("Fetch a food stamp")
 	public void exists() {
 		when(this.foodStampRepository.findById(ID)).thenReturn(Optional.of(this.foodStamp));
 
@@ -56,9 +56,9 @@ public class FoodStampProcessorTest extends FoodStampProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a non existent food stamp by Id")
+	@DisplayName("Fetch a non existent food stamp")
 	public void existsNotFound() {
-		when(this.foodStampRepository.findById(WRONG_ID)).thenReturn(Optional.of(this.foodStamp));
+		when(this.foodStampRepository.findById(ID)).thenReturn(Optional.empty());
 
 		FoodStampNotFoundException exception = assertThrows(FoodStampNotFoundException.class, () -> {
 			this.foodStampProcessor.exists(ID);

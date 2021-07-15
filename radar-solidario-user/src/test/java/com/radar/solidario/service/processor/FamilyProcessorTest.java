@@ -46,7 +46,7 @@ public class FamilyProcessorTest extends FamilyProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a family by Id")
+	@DisplayName("Fetch a family")
 	public void exists() {
 		when(this.familyRepository.findById(ID)).thenReturn(Optional.of(this.family));
 
@@ -57,9 +57,9 @@ public class FamilyProcessorTest extends FamilyProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a non existent family by Id")
+	@DisplayName("Fetch a non existent family")
 	public void existsNotFound() {
-		when(this.familyRepository.findById(WRONG_ID)).thenReturn(Optional.of(this.family));
+		when(this.familyRepository.findById(ID)).thenReturn(Optional.empty());
 
 		FamilyNotFoundException exception = assertThrows(FamilyNotFoundException.class, () -> {
 			this.familyProcessor.exists(ID);
@@ -83,7 +83,7 @@ public class FamilyProcessorTest extends FamilyProperties {
 	@Test
 	@DisplayName("Fetch a non existent family by CPF")
 	public void existsCpfNotFound() {
-		when(this.familyRepository.findByCpf(WRONG_CPF)).thenReturn(Optional.of(this.family));
+		when(this.familyRepository.findByCpf(CPF)).thenReturn(Optional.empty());
 
 		FamilyNotFoundException exception = assertThrows(FamilyNotFoundException.class, () -> {
 			this.familyProcessor.existsCpf(CPF);
@@ -107,7 +107,7 @@ public class FamilyProcessorTest extends FamilyProperties {
 	@Test
 	@DisplayName("Fetch a non existent family by NIS")
 	public void existsNisNotFound() {
-		when(this.familyRepository.findByNis(WRONG_NIS)).thenReturn(Optional.of(this.family));
+		when(this.familyRepository.findByNis(NIS)).thenReturn(Optional.empty());
 
 		FamilyNotFoundException exception = assertThrows(FamilyNotFoundException.class, () -> {
 			this.familyProcessor.existsNis(NIS);
@@ -118,15 +118,17 @@ public class FamilyProcessorTest extends FamilyProperties {
 	}
 
 	@Test
-	@DisplayName("Fetch a family by NIS or CPF")
+	@DisplayName("Check if family already exists")
 	public void findByNisOrCpf() {
+		when(this.familyRepository.findByNisOrCpf(NIS, CPF)).thenReturn(Optional.empty());
+		
 		this.familyProcessor.alreadyExists(NIS, CPF);
 
 		verify(this.familyRepository, times(1)).findByNisOrCpf(NIS, CPF);
 	}
 
 	@Test
-	@DisplayName("Fetch a already existent family by NIS or CPF")
+	@DisplayName("Check if family already exists with an existent family")
 	public void alreadyExists() {
 		when(this.familyRepository.findByNisOrCpf(NIS, CPF)).thenReturn(Optional.of(this.family));
 
