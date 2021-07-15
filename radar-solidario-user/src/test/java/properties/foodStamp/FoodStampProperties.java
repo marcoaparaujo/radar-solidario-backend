@@ -6,8 +6,8 @@ import properties.GeneralProperties;
 
 public class FoodStampProperties extends GeneralProperties {
 
-	protected static final Double WEIGHT = 5D;
-	protected static final Integer LENGHT = 10;
-	protected static final Boolean IS_ABLE = true;
-	protected static final LocalDate DATE = LocalDate.now();
+	public static final Double WEIGHT = 5D;
+	public static final Integer LENGHT = 10;
+	public static final Boolean IS_ABLE = true;
+	public static final LocalDate DATE = LocalDate.now();
 }
