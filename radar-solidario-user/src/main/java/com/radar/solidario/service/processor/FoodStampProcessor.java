@@ -38,7 +38,6 @@ public class FoodStampProcessor {
 		return optFoodStamp.get();
 	}
 
-
 	public List<FoodStampHRDTO> exists() {
 		log.info("Start - FoodStampProcessor.exists");
 
