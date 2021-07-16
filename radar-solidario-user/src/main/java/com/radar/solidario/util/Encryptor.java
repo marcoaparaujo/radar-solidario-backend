@@ -6,7 +6,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Encryptor {
+public final class Encryptor {
 
 	public static String encode(String value) {
 		return new BCryptPasswordEncoder().encode(value);

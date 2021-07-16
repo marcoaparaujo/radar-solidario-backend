@@ -10,7 +10,7 @@ public enum ErrorCode {
 	// Misc.
 	VALIDATION_FAILED("A validação falhou"),
 	INVALID_REQUEST("A requisição efetuada é inválida"),
-	INTERNAL_SERVER_ERROR("Ocorreu um erro interno nos serviçoes, tente novamente em alguns instantes"),
+	INTERNAL_SERVER_ERROR("Um erro ocorreu ao processar a requisição, tente novamente em alguns instantes"),
 	ACCESS_DENIED("Acesso negado. Você deve estar autenticado no sistema para acessar o serviço solicitado"),
 
 	// Token
@@ -19,13 +19,13 @@ public enum ErrorCode {
 	TOKEN_TYPE_INVALID("O tipo do token é inválido"),
 	
 	// Account
-	LOCKED_ACCOUNT("A conta está disponível, contate um administrador para maiores informações"),
+	LOCKED_ACCOUNT("A conta está indisponível, contate um administrador para maiores informações"),
 	WRONG_PASSWORD("O email e/ou senha estão incorretos"),
 
 	// Not Found
 	USER_NOT_FOUND("O usuário solicitado não foi encontrado"),
 	FAMILY_NOT_FOUND("A família solicitada não foi encontrada"),
-	FOODSTAMP_NOT_FOUND("A cesta solicitada não foi encontrada"),
+	FOOD_STAMP_NOT_FOUND("A cesta solicitada não foi encontrada"),
 	AUTHENTICATION_NOT_FOUND("A autenticação solicitada não foi encontrada"),
 	DONATE_NOT_FOUND("Doação solicitada não foi encontrada"),
 	CHARITY_NOT_FOUND("Caridade solicitada não foi encontrada"),

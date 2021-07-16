@@ -28,8 +28,8 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "\"user\"")
-@Entity(name = "\"user\"")
+@Table(name = "_user")
+@Entity(name = "_user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = -4520661629094456421L;

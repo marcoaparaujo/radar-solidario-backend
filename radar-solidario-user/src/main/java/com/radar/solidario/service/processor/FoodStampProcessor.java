@@ -38,6 +38,7 @@ public class FoodStampProcessor {
 		return optFoodStamp.get();
 	}
 
+
 	public List<FoodStampHRDTO> exists() {
 		log.info("Start - FoodStampProcessor.exists");
 
@@ -61,5 +62,4 @@ public class FoodStampProcessor {
 		log.info("End - FoodStampProcessor.remove - FoodStamp: {}", foodStamp);
 
 	}
-
 }
