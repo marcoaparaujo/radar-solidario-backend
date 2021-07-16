@@ -1,6 +1,8 @@
 package com.radar.solidario.service.implementation;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import com.radar.solidario.dto.foodStamp.FoodStampHRDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampRDTO;
 import com.radar.solidario.entity.FoodStamp;
+import com.radar.solidario.exception.foodStamp.notFound.FoodStampNotFoundException;
+import com.radar.solidario.repository.FoodStampRepository;
 import com.radar.solidario.service.FoodStampService;
 import com.radar.solidario.service.processor.FoodStampProcessor;
 
@@ -21,55 +25,69 @@ public class FoodStampServiceImplementation implements FoodStampService {
 
 	@Autowired
 	private ModelMapper mapper;
-	
+
 	@Autowired
 	private FoodStampProcessor foodStampProcessor;
-	
+
+	@Autowired
+	private FoodStampRepository foodStampRepository;
+
 	@Override
-	public List<FoodStamp> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<FoodStampHRDTO> findAll() {
+		log.info("Start - FoodStampServiceImplementation.findAll - FoodStampHRDTO");
+
+		List<FoodStampHRDTO> foodStampHRDTOs = this.foodStampProcessor.exists();
+
+		log.info("End - FoodStampServiceImplementation.findAll - FoodStampHRDTO: {}", foodStampHRDTOs);
+		return foodStampHRDTOs;
 	}
 
 	@Override
 	public FoodStampRDTO findById(Long id) {
-		log.info("Start - FoodStampProcessor.exists - Id: {}", id);
+		log.info("Start - FoodStampServiceImplementation.findById - Id: {}", id);
 
-		FoodStamp foodStamp = this.foodStampProcessor.exists(id);
-		FoodStampRDTO familyRDTO = this.mapper.map(foodStamp, FoodStampRDTO.class);
+		FoodStampRDTO foodStampRDTO = this.mapper.map(this.foodStampProcessor.exists(id), FoodStampRDTO.class);
 
-		log.info("End - FamilyProcessor.exists - FamilyRDTO: {}", familyRDTO);
-		return null;
+		log.info("End - FoodStampServiceImplementation.findById - FoodStampRDTO: {}", foodStampRDTO);
+		return foodStampRDTO;
 	}
 
 	@Override
-	public FoodStampRDTO findByDonate(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<FoodStampRDTO> findByDate(LocalDate date) {
+		log.info("Start - FoodStampServiceImplementation.findByDate - Date: {}", date);
 
-	@Override
-	public FoodStampRDTO findByCharity(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		List<FoodStamp> foodStamps = this.foodStampRepository.findByDate(date);
+		if (foodStamps.isEmpty()) {
+			throw new FoodStampNotFoundException();
+		}
 
-	@Override
-	public FoodStampRDTO findByDate(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<FoodStampRDTO> foodStampRDTO = foodStamps.stream().map(food -> mapper.map(foodStamps, FoodStampRDTO.class))
+				.collect(Collectors.toList());
+
+		log.info("End - FoodStampServiceImplementation.findByDate - FoodStampRDTO: {}", foodStampRDTO);
+		return foodStampRDTO;
 	}
 
 	@Override
 	public FoodStampHRDTO include(FoodStampPDTO foodStampPDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		log.info("Start - FoodStampServiceImplementation.include - FoodStampPDTO: {}", foodStampPDTO);
+
+		FoodStamp foodStamp = this.mapper.map(foodStampPDTO, FoodStamp.class);
+		this.foodStampRepository.save(foodStamp);
+
+		FoodStampHRDTO foodStampHRDTO = this.mapper.map(foodStamp, FoodStampHRDTO.class);
+
+		log.info("End - FoodStampServiceImplementation.include - FoodStampHRDTO: {}", foodStampHRDTO);
+		return foodStampHRDTO;
 	}
 
 	@Override
-	public FoodStampHRDTO remove(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void remove(Long id) {
+		log.info("Start - FoodStampServiceImplementation.remove - FoodStamp - Id: {}", id);
+
+		this.foodStampProcessor.remove(id);
+
+		log.info("End - FoodStampServiceImplementation.remove - FoodStamp - Id: {}", id);
 	}
 
 }

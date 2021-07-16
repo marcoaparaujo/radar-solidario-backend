@@ -29,34 +29,34 @@ public class FamilyServiceImplementation implements FamilyService {
 
 	@Override
 	public FamilyRDTO findById(Long id) {
-		log.info("Start - FamilyProcessor.findById - Id: {}", id);
+		log.info("Start - FamilyServiceImplementation.findById - Id: {}", id);
 
 		Family family = this.familyProcessor.exists(id);
 		FamilyRDTO familyRDTO = this.mapper.map(family, FamilyRDTO.class);
 
-		log.info("End - FamilyProcessor.findById - FamilyRDTO: {}", familyRDTO);
+		log.info("End - FamilyServiceImplementation.findById - FamilyRDTO: {}", familyRDTO);
 		return familyRDTO;
 	}
 
 	@Override
 	public FamilyRDTO findByNis(String nis) {
-		log.info("Start - FamilyProcessor.findByNis - NIS: {}", nis);
+		log.info("Start - FamilyServiceImplementation.findByNis - NIS: {}", nis);
 
 		Family family = this.familyProcessor.existsNis(nis);
 		FamilyRDTO familyRDTO = this.mapper.map(family, FamilyRDTO.class);
 
-		log.info("End - FamilyProcessor.findByNis - FamilyRDTO: {}", familyRDTO);
+		log.info("End - FamilyServiceImplementation.findByNis - FamilyRDTO: {}", familyRDTO);
 		return familyRDTO;
 	}
 
 	@Override
 	public FamilyRDTO findByCpf(String cpf) {
-		log.info("Start - FamilyProcessor.findByCpf - CPF: {}", cpf);
+		log.info("Start - FamilyServiceImplementation.findByCpf - CPF: {}", cpf);
 
 		Family family = this.familyProcessor.existsCpf(cpf);
 		FamilyRDTO familyRDTO = this.mapper.map(family, FamilyRDTO.class);
 
-		log.info("End - FamilyProcessor.findByCpf - FamilyRDTO: {}", familyRDTO);
+		log.info("End - FamilyServiceImplementation.findByCpf - FamilyRDTO: {}", familyRDTO);
 		return familyRDTO;
 	}
 
