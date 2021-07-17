@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import com.radar.solidario.constant.AuthenticationRole;
@@ -13,6 +15,7 @@ import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 import com.radar.solidario.dto.user.UserPDTO;
 import com.radar.solidario.entity.Authentication;
 import com.radar.solidario.repository.AuthenticationRepository;
+import com.radar.solidario.security.entity.JwtUser;
 import com.radar.solidario.service.AuthenticationService;
 import com.radar.solidario.service.processor.AuthenticationProcessor;
 import com.radar.solidario.util.Encryptor;
@@ -21,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Service
-public class AuthenticationServiceImplementation implements AuthenticationService {
+public class AuthenticationServiceImplementation implements AuthenticationService, UserDetailsService {
 
 	@Autowired
 	private ModelMapper mapper;
@@ -93,5 +96,16 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 
 		log.info("End - AuthenticationServiceImplementation.edit - AuthenticationFRPDTO: {}", authenticationRDTO);
 		return authenticationRDTO;
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String email) {
+		log.info("Start - AuthenticationServiceImplementation.loadUserByUsername - Email: {}", email);
+
+		AuthenticationFRDTO authentication = this.findByEmail(email);
+		JwtUser jwtUser = this.mapper.map(authentication, JwtUser.class);
+
+		log.info("End - AuthenticationServiceImplementation.loadUserByUsername - JwtUser: {}", jwtUser);
+		return jwtUser;
 	}
 }

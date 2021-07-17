@@ -18,11 +18,15 @@ import properties.user.UserProperties;
 
 public class SecurityInstance extends AuthenticationProperties {
 
+	public static List<AuthenticationRole> instaceVoluntaryRoles() {
+		return Arrays.asList(AuthenticationRole.VOLUNTARY);
+	}
+
 	public static UsernamePasswordAuthenticationToken intanceUsernamePasswordAuthenticationToken() {
 		return new UsernamePasswordAuthenticationToken(EMAIL, PASSWORD);
 	}
 
-	public static JwtUser jwtUserInstance() {
+	public static JwtUser instanceJwtUser() {
 		GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(AuthenticationRole.VOLUNTARY.name());
 		return JwtUser.builder().id(ID).email(EMAIL).password(PASSWORD).authorities(Arrays.asList(grantedAuthority))
 				.build();
@@ -37,7 +41,6 @@ public class SecurityInstance extends AuthenticationProperties {
 	}
 
 	public static TokenFRDTO instanceTokenFRDTO() {
-		List<AuthenticationRole> roles = Arrays.asList(AuthenticationRole.VOLUNTARY);
-		return TokenFRDTO.builder().name(UserProperties.NAME).token(TOKEN).roles(roles).build();
+		return TokenFRDTO.builder().name(UserProperties.NAME).token(TOKEN).roles(instaceVoluntaryRoles()).build();
 	}
 }

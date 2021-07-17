@@ -70,7 +70,7 @@ public class SecurityProcessorTest extends AuthenticationProperties {
 
 	@BeforeEach
 	public void init() {
-		this.userDetails = SecurityInstance.jwtUserInstance();
+		this.userDetails = SecurityInstance.instanceJwtUser();
 		this.authentication = AuthenticationInstance.instace();
 		this.usernamePasswordAuthenticationToken = SecurityInstance.intanceUsernamePasswordAuthenticationToken();
 	}
