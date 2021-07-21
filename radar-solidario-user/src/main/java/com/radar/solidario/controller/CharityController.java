@@ -1,9 +1,16 @@
 package com.radar.solidario.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -42,8 +49,30 @@ public class CharityController {
 		return ResponseEntity.ok(response);
 	}
 
+	@GetMapping
+	public ResponseEntity<List<FoodStampHRDTO>> findByAll() {
+		log.info("Start - CharityController.findByAll : {}");
+
+		List<FoodStampHRDTO> foodStamps = this.foodStampService.findAll();
+
+		log.info("End - CharityController.findByAll : {}");
+		return ResponseEntity.ok(foodStamps);
+	}
+
+	@Cacheable("charity")
+	@GetMapping(params = "date")
+	public ResponseEntity<List<FoodStampRDTO>> findByDate(
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+		log.info("Start - CharityController.findByDate - Date: {}", date);
+		
+		List<FoodStampRDTO> foodStamps = foodStampService.findByDate(date);
+		
+		log.info("End - CharityController.findByDate - FoodStampRDTO: {}", foodStamps);
+		return ResponseEntity.ok(foodStamps);
+	}
+	
 	@PostMapping
-	public ResponseEntity<Response<FoodStampHRDTO>> include(@RequestBody FoodStampPDTO foodStampPDTO) {
+	public ResponseEntity<Response<FoodStampHRDTO>> include(@RequestBody @Valid FoodStampPDTO foodStampPDTO) {
 		log.info("Start - CharityController.register - FoodStampPDTO: {}", foodStampPDTO);
 		Response<FoodStampHRDTO> response = new Response<>();
 
@@ -52,6 +81,16 @@ public class CharityController {
 
 		log.info("End - CharityController.register - FoodStampHRDTO: {}", foodStamp);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+
+
+	@DeleteMapping(params = "id")
+	public void remove(@RequestParam Long id) {
+		log.info("Start - CharityController.remove - Id: {}", id);
+
+		foodStampService.remove(id);
+
+		log.info("End - CharityController.remove - Id: {}", id);
 	}
 
 }

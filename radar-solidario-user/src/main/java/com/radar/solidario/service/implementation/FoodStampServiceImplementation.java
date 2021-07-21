@@ -1,6 +1,8 @@
 package com.radar.solidario.service.implementation;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,16 +58,17 @@ public class FoodStampServiceImplementation implements FoodStampService {
 	public List<FoodStampRDTO> findByDate(LocalDate date) {
 		log.info("Start - FoodStampServiceImplementation.findByDate - Date: {}", date);
 
-		List<FoodStamp> foodStamps = this.foodStampRepository.findByDate(date);
+		Date data = Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+		List<FoodStamp> foodStamps = this.foodStampRepository.findByDate(data);
 		if (foodStamps.isEmpty()) {
 			throw new FoodStampNotFoundException();
 		}
-
-		List<FoodStampRDTO> foodStampRDTO = foodStamps.stream().map(food -> mapper.map(foodStamps, FoodStampRDTO.class))
+		List<FoodStampRDTO> foodStampRDTOs = foodStamps.stream().map(food -> this.mapper.map(food, FoodStampRDTO.class))
 				.collect(Collectors.toList());
 
-		log.info("End - FoodStampServiceImplementation.findByDate - FoodStampRDTO: {}", foodStampRDTO);
-		return foodStampRDTO;
+		log.info("End - FoodStampServiceImplementation.findByDate - FoodStampRDTO: {}", foodStamps);
+		return foodStampRDTOs;
 	}
 
 	@Override

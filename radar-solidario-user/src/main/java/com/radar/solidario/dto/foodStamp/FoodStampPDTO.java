@@ -20,9 +20,12 @@ public class FoodStampPDTO implements Serializable {
 
 	@NotNull(message = "O campo 'Peso' é obrigatório")
 	private Double weight;
+	
+	@NotNull(message = "O campo 'Comprimento' é obrigatório")
+	private Integer lenght;
 
 	@NotNull(message = "O campo ' ' é obrigatório")
-	private boolean isAble;
+	private Boolean isAble;
 
 	@NotNull(message = "O campo 'Data' é obrigatório")
 	private LocalDate date;
