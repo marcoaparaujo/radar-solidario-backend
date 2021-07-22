@@ -62,7 +62,7 @@ public class CharityController {
 	@Cacheable("charity")
 	@GetMapping(params = "date")
 	public ResponseEntity<List<FoodStampRDTO>> findByDate(
-			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd/MM/yyyy") LocalDate date) {
 		log.info("Start - CharityController.findByDate - Date: {}", date);
 		
 		List<FoodStampRDTO> foodStamps = foodStampService.findByDate(date);

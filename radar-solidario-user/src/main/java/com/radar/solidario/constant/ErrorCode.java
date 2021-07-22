@@ -12,6 +12,7 @@ public enum ErrorCode {
 	INVALID_REQUEST("A requisição efetuada é inválida"),
 	INTERNAL_SERVER_ERROR("Um erro ocorreu ao processar a requisição, tente novamente em alguns instantes"),
 	ACCESS_DENIED("Acesso negado. Você deve estar autenticado no sistema para acessar o serviço solicitado"),
+	INVALID_DATE("A data deve ser igual a data atual"),
 
 	// Token
 	TOKEN_EMPTY("O token está vazio"),

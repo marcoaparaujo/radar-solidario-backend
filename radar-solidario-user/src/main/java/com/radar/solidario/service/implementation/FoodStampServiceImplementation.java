@@ -14,6 +14,7 @@ import com.radar.solidario.dto.foodStamp.FoodStampHRDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampRDTO;
 import com.radar.solidario.entity.FoodStamp;
+import com.radar.solidario.exception.foodStamp.alreadyDate.FoodStampAlreadyDateException;
 import com.radar.solidario.exception.foodStamp.notFound.FoodStampNotFoundException;
 import com.radar.solidario.repository.FoodStampRepository;
 import com.radar.solidario.service.FoodStampService;
@@ -74,6 +75,10 @@ public class FoodStampServiceImplementation implements FoodStampService {
 	@Override
 	public FoodStampHRDTO include(FoodStampPDTO foodStampPDTO) {
 		log.info("Start - FoodStampServiceImplementation.include - FoodStampPDTO: {}", foodStampPDTO);
+
+		if (!foodStampPDTO.getDate().isEqual(LocalDate.now())) {
+			throw new FoodStampAlreadyDateException();
+		}
 
 		FoodStamp foodStamp = this.mapper.map(foodStampPDTO, FoodStamp.class);
 		this.foodStampRepository.save(foodStamp);

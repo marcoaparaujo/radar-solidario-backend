@@ -5,6 +5,8 @@ import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,6 +33,7 @@ public class FoodStampRDTO implements Serializable {
 	private Boolean isAble;
 
 	@NotNull(message = "O campo 'Data' é obrigatório")
+	@JsonFormat(pattern = "dd/MM/yyyy", timezone = "GMT-3", shape = JsonFormat.Shape.STRING)
 	private LocalDate date;
 
 }
