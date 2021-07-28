@@ -30,5 +30,4 @@ public class DonateProcessor {
 		log.info("End - DonateProcessor.exists - Donate: {}", optDonate.get());
 		return optDonate.get();
 	}
-
 }

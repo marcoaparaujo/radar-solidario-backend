@@ -1,6 +1,5 @@
 package com.radar.solidario.service.processor;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,42 +28,32 @@ public class CharityProcessor {
 			throw new CharityNotFoundException();
 		}
 
-		log.info("End - CharityProcessor.exists - Chariry: {}", optCharity.get());
+		log.info("End - CharityProcessor.exists - Charity: {}", optCharity.get());
+		return optCharity.get();
+	}
+
+	public Charity exists(String name) {
+		log.info("Start - CharityProcessor.exists - Name: {}", name);
+
+		Optional<Charity> optCharity = this.charityRepository.findByName(name);
+		if (optCharity.isEmpty()) {
+			log.error("CharityNotFoundException - Name: {}", name);
+			throw new CharityNotFoundException();
+		}
+
+		log.info("End - CharityProcessor.exists - Charity: {}", optCharity.get());
 		return optCharity.get();
 	}
 
 	public void alreadyExists(String name) {
-		log.info("Start - CharityProcessor.existsName - Id: {}", name);
+		log.info("Start - CharityProcessor.alreadyExists - Id: {}", name);
 
-		Optional<Charity> charity = charityRepository.findByName(name);
+		Optional<Charity> charity = this.charityRepository.findByName(name);
 		if (charity.isPresent()) {
 			log.error("CharityAlreadyExistsException - Name: {}", name);
 			throw new CharityAlreadyExistsException();
 		}
 
-		log.info("End - CharityProcessor.existsName - Chariry: {}", charity);
+		log.info("End - CharityProcessor.alreadyExists - Charity: {}", charity);
 	}
-
-	public List<Charity> exists() {
-		log.info("Start - CharityProcessor.exists ");
-
-		List<Charity> charities = this.charityRepository.findAll();
-		if (charities.isEmpty()) {
-			log.error("CharityNotFoundException");
-			throw new CharityNotFoundException();
-		}
-
-		log.info("End - CharityProcessor.exists - Charities: {}", charities);
-		return charities;
-	}
-
-	public void remove(Long id) {
-		log.info("Start - CharityProcessor.remove - Charity - Id: {} ", id);
-
-		Charity charity = this.exists(id);
-		this.charityRepository.delete(charity);
-
-		log.info("End - CharityProcessor.remove - Charity - Id: {}", id);
-	}
-
 }

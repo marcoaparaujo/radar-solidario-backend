@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.radar.solidario.dto.donate.DonateRDTO;
-import com.radar.solidario.exception.donate.notFound.DonateNotFoundException;
+import com.radar.solidario.entity.Donate;
 import com.radar.solidario.repository.DonateRepository;
 import com.radar.solidario.service.DonateService;
 import com.radar.solidario.service.processor.DonateProcessor;
@@ -20,36 +20,34 @@ import lombok.extern.slf4j.Slf4j;
 public class DonateServiceImplementation implements DonateService {
 
 	@Autowired
+	private ModelMapper mapper;
+
+	@Autowired
 	private DonateProcessor donateProcessor;
 
 	@Autowired
 	private DonateRepository donateRepository;
 
-	@Autowired
-	private ModelMapper mapper;
-
 	@Override
 	public List<DonateRDTO> findAll() {
-		log.info("Start - DonateServiceImplementation.findAll ");
+		log.info("Start - DonateServiceImplementation.findAll");
 
-		List<DonateRDTO> donateRDTOs = this.donateRepository.findAll().stream()
-				.map(donate -> mapper.map(donate, DonateRDTO.class)).collect(Collectors.toList());
-		if (donateRDTOs.isEmpty()) {
-			throw new DonateNotFoundException();
-		}
+		List<Donate> donates = this.donateRepository.findAll();
+		List<DonateRDTO> donatesRDTO = donates.stream().map(donate -> this.mapper.map(donate, DonateRDTO.class))
+				.collect(Collectors.toList());
 
-		log.info("End - DonateServiceImplementation.findAll - DonateRDTO: {}", donateRDTOs);
-		return donateRDTOs;
+		log.info("End - DonateServiceImplementation.findAll - List<DonateRDTO>: {}", donatesRDTO);
+		return donatesRDTO;
 	}
 
 	@Override
 	public DonateRDTO findById(Long id) {
 		log.info("Start - DonateServiceImplementation.findById - Id: {}", id);
 
-		DonateRDTO donateRDTO = mapper.map(this.donateProcessor.exists(id), DonateRDTO.class);
+		Donate donate = this.donateProcessor.exists(id);
+		DonateRDTO donateRDTO = mapper.map(donate, DonateRDTO.class);
 
 		log.info("End - DonateServiceImplementation.findById - DonateRDTO: {}", donateRDTO);
 		return donateRDTO;
 	}
-
 }

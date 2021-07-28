@@ -24,10 +24,10 @@ public class FoodStampHRDTO implements Serializable {
 	@NotNull(message = "O campo 'Peso' é obrigatório")
 	private Double weight;
 	
-	@NotNull(message = "O campo 'Comprimento' é obrigatório")
+	@NotNull(message = "O campo 'Quantidade' é obrigatório")
 	private Integer lenght;
 
-	@NotNull(message = "O campo ' ' é obrigatório")
+	@NotNull(message = "O campo 'Disponível' é obrigatório")
 	private Boolean isAble;
 
 	@NotNull(message = "O campo 'Data' é obrigatório")

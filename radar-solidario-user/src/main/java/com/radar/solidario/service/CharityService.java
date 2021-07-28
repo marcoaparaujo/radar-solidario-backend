@@ -7,12 +7,13 @@ import com.radar.solidario.dto.charity.CharityRDTO;
 
 public interface CharityService {
 
-	CharityRDTO findById(Long id);
-
 	List<CharityRDTO> findAll();
 
-	CharityPDTO include(CharityPDTO charityPDTO);
+	CharityRDTO findById(Long id);
 
-	void remove(Long id);
+	CharityRDTO findByName(String name);
 
+	CharityRDTO include(CharityPDTO charityPDTO);
+
+	CharityRDTO remove(Long id);
 }

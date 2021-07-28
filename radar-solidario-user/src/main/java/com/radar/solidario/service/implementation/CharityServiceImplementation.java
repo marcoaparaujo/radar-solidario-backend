@@ -21,55 +21,73 @@ import lombok.extern.slf4j.Slf4j;
 public class CharityServiceImplementation implements CharityService {
 
 	@Autowired
+	private ModelMapper mapper;
+
+	@Autowired
 	private CharityProcessor charityProcessor;
-	
+
 	@Autowired
 	private CharityRepository charityRepository;
 
-	@Autowired
-	private ModelMapper mapper;
+	@Override
+	public List<CharityRDTO> findAll() {
+		log.info("Start - CharityServiceImplementation.findAll");
+
+		List<Charity> charities = this.charityRepository.findAll();
+		List<CharityRDTO> charitiesRDTO = charities.stream().map(charity -> this.mapper.map(charity, CharityRDTO.class))
+				.collect(Collectors.toList());
+
+		log.info("End - CharityServiceImplementation.findAll - List<CharityRDTO>: {}", charitiesRDTO);
+		return charitiesRDTO;
+	}
 
 	@Override
 	public CharityRDTO findById(Long id) {
 		log.info("Start - CharityServiceImplementation.findById - Id: {}", id);
 
-		CharityRDTO charityRDTO = this.mapper.map(charityProcessor.exists(id), CharityRDTO.class);
+		Charity charity = this.charityProcessor.exists(id);
+		CharityRDTO charityRDTO = this.mapper.map(charity, CharityRDTO.class);
 
 		log.info("End - CharityServiceImplementation.findById - CharityRDTO: {}", charityRDTO);
 		return charityRDTO;
 	}
 
 	@Override
-	public List<CharityRDTO> findAll() {
-		log.info("Start - CharityServiceImplementation.findAll");
+	public CharityRDTO findByName(String name) {
+		log.info("Start - CharityServiceImplementation.findByName - Name: {}", name);
 
-		List<CharityRDTO> charityRDTOs = charityProcessor.exists().stream()
-				.map(charity -> mapper.map(charity, CharityRDTO.class)).collect(Collectors.toList());
+		Charity charity = this.charityProcessor.exists(name);
+		CharityRDTO charityRDTO = this.mapper.map(charity, CharityRDTO.class);
 
-		log.info("End - CharityServiceImplementation.findALl - CharityRDTO: {}", charityRDTOs);
-		return charityRDTOs;
+		log.info("End - CharityServiceImplementation.findByName - CharityRDTO: {}", charityRDTO);
+		return charityRDTO;
 	}
 
 	@Override
-	public CharityPDTO include(CharityPDTO charityPDTO) {
-		log.info("Start - CharityServiceImplementation.include");
-		
+	public CharityRDTO include(CharityPDTO charityPDTO) {
+		log.info("Start - CharityServiceImplementation.include - CharityPDTO: {}", charityPDTO);
+
 		this.charityProcessor.alreadyExists(charityPDTO.getName());
-		Charity charity = mapper.map(charityPDTO, Charity.class);
-		this.charityRepository.save(charity);		
-		
-		log.info("End - CharityServiceImplementation.include - CharityPDTO: {}", charityPDTO);
-		return charityPDTO;
+
+		Charity charity = this.mapper.map(charityPDTO, Charity.class);
+		charity = this.charityRepository.save(charity);
+
+		CharityRDTO charityRDTO = this.mapper.map(charity, CharityRDTO.class);
+
+		log.info("End - CharityServiceImplementation.include - CharityRDTO: {}", charityRDTO);
+		return charityRDTO;
 	}
 
 	@Override
-	public void remove(Long id) {
-		log.info("Start - CharityServiceImplementation.remove - Charity -Id: {}", id);
+	public CharityRDTO remove(Long id) {
+		log.info("Start - CharityServiceImplementation.remove - Id: {}", id);
 
-		this.charityProcessor.remove(id);
+		Charity charity = this.charityProcessor.exists(id);
+		this.charityRepository.delete(charity);
 
-		log.info("End - CharityServiceImplementation.remove - Charity - Id: {}", id);
+		CharityRDTO charityRDTO = this.mapper.map(charity, CharityRDTO.class);
 
+		log.info("End - CharityServiceImplementation.remove - CharityRDTO: {}", charityRDTO);
+		return charityRDTO;
 	}
-
 }

@@ -13,7 +13,4 @@ public interface CharityRepository extends JpaRepository<Charity, Long> {
 
 	@Transactional(readOnly = true)
 	Optional<Charity> findByName(String name);
-
-	
-
 }

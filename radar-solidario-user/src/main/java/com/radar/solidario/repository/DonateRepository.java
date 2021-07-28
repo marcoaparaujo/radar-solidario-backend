@@ -8,6 +8,4 @@ import com.radar.solidario.entity.Donate;
 @Repository
 public interface DonateRepository extends JpaRepository<Donate, Long> {
 
-	
-
 }

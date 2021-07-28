@@ -18,19 +18,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FoodStampPDTO implements Serializable {
 
-	private static final long serialVersionUID = -2883604370082348879L;
+	private static final long serialVersionUID = 368742626815121569L;
 
 	@NotNull(message = "O campo 'Peso' é obrigatório")
 	private Double weight;
 
-	@NotNull(message = "O campo 'Comprimento' é obrigatório")
+	@NotNull(message = "O campo 'Quantidade' é obrigatório")
 	private Integer lenght;
 
-	@NotNull(message = "O campo ' ' é obrigatório")
+	@NotNull(message = "O campo 'Disponível' é obrigatório")
 	private Boolean isAble;
 
 	@NotNull(message = "O campo 'Data' é obrigatório")
 	@JsonFormat(pattern = "dd/MM/yyyy", timezone = "GMT-3", shape = JsonFormat.Shape.STRING)
 	private LocalDate date;
-
 }

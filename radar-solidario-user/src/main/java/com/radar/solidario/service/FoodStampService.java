@@ -8,14 +8,14 @@ import com.radar.solidario.dto.foodStamp.FoodStampPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampRDTO;
 
 public interface FoodStampService {
+
 	List<FoodStampHRDTO> findAll();
+
+	List<FoodStampRDTO> findAllByDate(LocalDate date);
 
 	FoodStampRDTO findById(Long id);
 
-	List<FoodStampRDTO> findByDate(LocalDate date);
-
 	FoodStampHRDTO include(FoodStampPDTO foodStampPDTO);
 
-	void remove(Long id);
-
+	FoodStampHRDTO remove(Long id);
 }

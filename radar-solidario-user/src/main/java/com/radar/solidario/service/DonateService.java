@@ -8,5 +8,4 @@ public interface DonateService {
 	List<DonateRDTO> findAll();
 
 	DonateRDTO findById(Long id);
-
 }

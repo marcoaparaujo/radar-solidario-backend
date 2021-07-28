@@ -35,7 +35,7 @@ public class Charity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", nullable = false, unique = true)
 	@Size(max = 255, message = "O campo 'Entidade' deve conter no máximo 255 caracteres")
 	private String name;
 
