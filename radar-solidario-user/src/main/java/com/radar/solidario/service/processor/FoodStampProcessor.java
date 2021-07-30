@@ -30,4 +30,47 @@ public class FoodStampProcessor {
 		log.info("End - FoodStampProcessor.exists - FoodStamp: {}", optFoodStamp.get());
 		return optFoodStamp.get();
 	}
+
+	public FoodStamp exists(Double weight) {
+		log.info("Start - FoodStampProcessor.exists - Weight: {}", weight);
+
+		Optional<FoodStamp> optFoodStamp = this.foodStampRepository.findByWeight(weight);
+		if (optFoodStamp.isEmpty()) {
+			log.error("FoodStampNotFoundException - Weight: {}", weight);
+			throw new FoodStampNotFoundException();
+		}
+
+		log.info("End - FoodStampProcessor.exists - FoodStamp: {}", optFoodStamp.get());
+		return optFoodStamp.get();
+	}
+
+	public FoodStamp mergeAdd(FoodStamp foodStamp) {
+		log.info("Start - FoodStampProcessor.exists - FoodStamp: {}", foodStamp);
+
+		Optional<FoodStamp> optFoodStamp = this.foodStampRepository.findByWeight(foodStamp.getWeight());
+		if (optFoodStamp.isPresent()) {
+			Integer actualLenght = optFoodStamp.get().getLenght() + foodStamp.getLenght();
+			optFoodStamp.get().setLenght(actualLenght);
+
+			foodStamp = optFoodStamp.get();
+		}
+
+		log.info("End - FoodStampProcessor.exists - FoodStamp: {}", foodStamp);
+		return foodStamp;
+	}
+
+	public FoodStamp mergeRemove(FoodStamp foodStamp) {
+		log.info("Start - FoodStampProcessor.exists - FoodStamp: {}", foodStamp);
+
+		Optional<FoodStamp> optFoodStamp = this.foodStampRepository.findByWeight(foodStamp.getWeight());
+		if (optFoodStamp.isPresent()) {
+			Integer actualLenght = Math.max(0, optFoodStamp.get().getLenght() - foodStamp.getLenght());
+			optFoodStamp.get().setLenght(actualLenght);
+
+			foodStamp = optFoodStamp.get();
+		}
+
+		log.info("End - FoodStampProcessor.exists - FoodStamp: {}", foodStamp);
+		return foodStamp;
+	}
 }

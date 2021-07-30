@@ -2,18 +2,23 @@ package com.radar.solidario.service;
 
 import java.util.List;
 
-import com.radar.solidario.dto.charity.CharityPDTO;
-import com.radar.solidario.dto.charity.CharityRDTO;
+import com.radar.solidario.dto.OptionDTO;
+import com.radar.solidario.dto.charity.CharityFRPDTO;
+import com.radar.solidario.dto.charity.CharityRPDTO;
 
 public interface CharityService {
 
-	List<CharityRDTO> findAll();
+	List<CharityRPDTO> findAll();
 
-	CharityRDTO findById(Long id);
+	CharityRPDTO findById(Long id);
 
-	CharityRDTO findByName(String name);
+	CharityRPDTO findByName(String name);
 
-	CharityRDTO include(CharityPDTO charityPDTO);
+	List<OptionDTO<Long>> findOptions();
 
-	CharityRDTO remove(Long id);
+	CharityRPDTO include(CharityRPDTO charityPDTO);
+	
+	CharityRPDTO edit(CharityFRPDTO charityRPDTO);
+
+	CharityRPDTO remove(Long id);
 }

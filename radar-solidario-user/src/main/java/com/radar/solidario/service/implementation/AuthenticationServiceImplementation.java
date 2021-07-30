@@ -12,7 +12,7 @@ import com.radar.solidario.constant.AuthenticationRole;
 import com.radar.solidario.dto.authentication.AuthenticationFPDTO;
 import com.radar.solidario.dto.authentication.AuthenticationFRDTO;
 import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
-import com.radar.solidario.dto.user.UserPDTO;
+import com.radar.solidario.dto.user.UserPIDTO;
 import com.radar.solidario.entity.Authentication;
 import com.radar.solidario.repository.AuthenticationRepository;
 import com.radar.solidario.security.entity.JwtUser;
@@ -59,11 +59,11 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 	}
 
 	@Override
-	public AuthenticationRPDTO include(UserPDTO userPDTO, List<AuthenticationRole> roles) {
-		log.info("Start - AuthenticationServiceImplementation.include - UserPDTO: {} - List<AuthenticationRole>: {}", userPDTO,
-				roles);
+	public AuthenticationRPDTO include(UserPIDTO userPIDTO, List<AuthenticationRole> roles) {
+		log.info("Start - AuthenticationServiceImplementation.include - UserPIDTO: {} - List<AuthenticationRole>: {}",
+				userPIDTO, roles);
 
-		Authentication authentication = this.mapper.map(userPDTO, Authentication.class);
+		Authentication authentication = this.mapper.map(userPIDTO, Authentication.class);
 		authentication.setRole(roles);
 		authentication.setIsLocked(false);
 
@@ -73,7 +73,7 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 		authentication = this.authenticationRepository.save(authentication);
 
 		AuthenticationRPDTO authenticationRDTO = this.mapper.map(authentication, AuthenticationRPDTO.class);
-		authenticationRDTO.setPassword(userPDTO.getAuthentication().getPassword());
+		authenticationRDTO.setPassword(userPIDTO.getAuthentication().getPassword());
 
 		log.info("End - AuthenticationServiceImplementation.include - AuthenticationRDTO: {}", authenticationRDTO);
 		return authenticationRDTO;
@@ -82,8 +82,6 @@ public class AuthenticationServiceImplementation implements AuthenticationServic
 	@Override
 	public AuthenticationRPDTO edit(AuthenticationFPDTO authenticationFPDTO) {
 		log.info("Start - AuthenticationServiceImplementation.edit - AuthenticationFPDTO: {}", authenticationFPDTO);
-
-		this.authenticationProcessor.exists(authenticationFPDTO.getEmail());
 
 		Authentication authentication = this.mapper.map(authenticationFPDTO, Authentication.class);
 		authentication = this.authenticationProcessor.merge(authentication);

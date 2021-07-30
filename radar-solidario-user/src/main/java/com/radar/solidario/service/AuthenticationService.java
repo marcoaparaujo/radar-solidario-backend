@@ -6,7 +6,7 @@ import com.radar.solidario.constant.AuthenticationRole;
 import com.radar.solidario.dto.authentication.AuthenticationFPDTO;
 import com.radar.solidario.dto.authentication.AuthenticationFRDTO;
 import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
-import com.radar.solidario.dto.user.UserPDTO;
+import com.radar.solidario.dto.user.UserPIDTO;
 
 public interface AuthenticationService {
 
@@ -14,8 +14,7 @@ public interface AuthenticationService {
 
 	AuthenticationFRDTO findByEmail(String email);
 
-	AuthenticationRPDTO include(UserPDTO userPDTO, List<AuthenticationRole> roles);
+	AuthenticationRPDTO include(UserPIDTO UserPIDTO, List<AuthenticationRole> roles);
 
 	AuthenticationRPDTO edit(AuthenticationFPDTO authentication);
-
 }

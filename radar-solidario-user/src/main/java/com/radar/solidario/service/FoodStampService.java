@@ -15,7 +15,7 @@ public interface FoodStampService {
 
 	FoodStampRDTO findById(Long id);
 
-	FoodStampHRDTO include(FoodStampPDTO foodStampPDTO);
+	FoodStampHRDTO add(FoodStampPDTO foodStampPDTO);
 
-	FoodStampHRDTO remove(Long id);
+	FoodStampHRDTO remove(FoodStampPDTO foodStampPDTO);
 }

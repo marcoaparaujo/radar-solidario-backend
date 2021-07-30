@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.radar.solidario.constant.Gender;
+import com.radar.solidario.dto.IdentificatorDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,4 +45,7 @@ public class UserFPDTO implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@NotNull(message = "O campo 'Gênero' é obrigatório")
 	private Gender gender;
+	
+	@NotNull(message = "O campo 'Entidade' é obrigatório")
+	private IdentificatorDTO charity;
 }

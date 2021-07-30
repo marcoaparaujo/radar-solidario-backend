@@ -67,24 +67,28 @@ public class FoodStampServiceImplementation implements FoodStampService {
 	}
 
 	@Override
-	public FoodStampHRDTO include(FoodStampPDTO foodStampPDTO) {
-		log.info("Start - FoodStampServiceImplementation.include - FoodStampPDTO: {}", foodStampPDTO);
+	public FoodStampHRDTO add(FoodStampPDTO foodStampPDTO) {
+		log.info("Start - FoodStampServiceImplementation.add - FoodStampPDTO: {}", foodStampPDTO);
 
 		FoodStamp foodStamp = this.mapper.map(foodStampPDTO, FoodStamp.class);
-		this.foodStampRepository.save(foodStamp);
+		foodStamp = this.foodStampProcessor.mergeAdd(foodStamp);
+
+		foodStamp = this.foodStampRepository.save(foodStamp);
 
 		FoodStampHRDTO foodStampHRDTO = this.mapper.map(foodStamp, FoodStampHRDTO.class);
 
-		log.info("End - FoodStampServiceImplementation.include - FoodStampHRDTO: {}", foodStampHRDTO);
+		log.info("End - FoodStampServiceImplementation.add - FoodStampHRDTO: {}", foodStampHRDTO);
 		return foodStampHRDTO;
 	}
 
 	@Override
-	public FoodStampHRDTO remove(Long id) {
-		log.info("Start - FoodStampServiceImplementation.remove - Id: {}", id);
+	public FoodStampHRDTO remove(FoodStampPDTO foodStampPDTO) {
+		log.info("Start - FoodStampServiceImplementation.remove - FoodStampPDTO: {}", foodStampPDTO);
 
-		FoodStamp foodStamp = this.foodStampProcessor.exists(id);
-		this.foodStampRepository.delete(foodStamp);
+		FoodStamp foodStamp = this.mapper.map(foodStampPDTO, FoodStamp.class);
+		foodStamp = this.foodStampProcessor.mergeRemove(foodStamp);
+
+		foodStamp = this.foodStampRepository.save(foodStamp);
 
 		FoodStampHRDTO foodStampHRDTO = this.mapper.map(foodStamp, FoodStampHRDTO.class);
 

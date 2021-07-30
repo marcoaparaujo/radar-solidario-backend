@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.radar.solidario.entity.Address;
 import com.radar.solidario.entity.Charity;
 import com.radar.solidario.exception.charity.alreadyExists.CharityAlreadyExistsException;
 import com.radar.solidario.exception.charity.notFound.CharityNotFoundException;
@@ -15,6 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class CharityProcessor {
+
+	@Autowired
+	private AddressProcessor addressProcessor;
 
 	@Autowired
 	private CharityRepository charityRepository;
@@ -46,7 +50,7 @@ public class CharityProcessor {
 	}
 
 	public void alreadyExists(String name) {
-		log.info("Start - CharityProcessor.alreadyExists - Id: {}", name);
+		log.info("Start - CharityProcessor.alreadyExists - Name: {}", name);
 
 		Optional<Charity> charity = this.charityRepository.findByName(name);
 		if (charity.isPresent()) {
@@ -55,5 +59,18 @@ public class CharityProcessor {
 		}
 
 		log.info("End - CharityProcessor.alreadyExists - Charity: {}", charity);
+	}
+
+	public Charity merge(Charity charity) {
+		log.info("Start - CharityProcessor.merge - Charity: {}", charity);
+
+		Charity originalCharity = this.exists(charity.getId());
+		originalCharity.setName(charity.getName());
+
+		Address originalAddress = this.addressProcessor.combine(charity.getAddress(), originalCharity.getAddress());
+		originalCharity.setAddress(originalAddress);
+
+		log.info("End - CharityProcessor.merge - Charity: {}", originalCharity);
+		return originalCharity;
 	}
 }

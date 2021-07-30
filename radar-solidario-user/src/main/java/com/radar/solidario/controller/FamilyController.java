@@ -86,13 +86,13 @@ public class FamilyController {
 
 	@PostMapping
 	public ResponseEntity<Response<FamilyHRDTO>> include(@RequestBody @Valid FamilyPDTO familyPDTO) {
-		log.info("Start - FamilyController.register - FamilyPDTO: {}", familyPDTO);
+		log.info("Start - FamilyController.include - FamilyPDTO: {}", familyPDTO);
 		Response<FamilyHRDTO> response = new Response<>();
 
 		FamilyHRDTO family = this.familyService.include(familyPDTO);
 		response.setData(family);
 
-		log.info("End - FamilyController.register - FamilyHRDTO: {}", family);
+		log.info("End - FamilyController.include - FamilyHRDTO: {}", family);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 }

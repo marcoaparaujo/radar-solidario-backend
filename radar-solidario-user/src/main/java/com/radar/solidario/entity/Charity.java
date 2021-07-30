@@ -1,6 +1,7 @@
 package com.radar.solidario.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -47,13 +49,14 @@ public class Charity implements Serializable {
 	private Address address;
 
 	@ToString.Exclude
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinTable(name = "donate_charity", joinColumns = {
-			@JoinColumn(name = "donate_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "charity_id", referencedColumnName = "id") })
-	private Donate donate;
-	
-//	@ToString.Exclude
-//	@OneToMany(mappedBy = "charity")
-//	private List<User> user;
+	@OneToMany(mappedBy = "charity")
+	private List<Donate> donate;
+
+	@ToString.Exclude
+	@OneToMany(mappedBy = "charity")
+	private List<FoodStamp> foodStamp;
+
+	@ToString.Exclude
+	@OneToMany(mappedBy = "charity")
+	private List<User> user;
 }

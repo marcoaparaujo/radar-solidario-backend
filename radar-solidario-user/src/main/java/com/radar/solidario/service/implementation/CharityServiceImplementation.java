@@ -7,8 +7,9 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.radar.solidario.dto.charity.CharityPDTO;
-import com.radar.solidario.dto.charity.CharityRDTO;
+import com.radar.solidario.dto.OptionDTO;
+import com.radar.solidario.dto.charity.CharityFRPDTO;
+import com.radar.solidario.dto.charity.CharityRPDTO;
 import com.radar.solidario.entity.Charity;
 import com.radar.solidario.repository.CharityRepository;
 import com.radar.solidario.service.CharityService;
@@ -30,64 +31,92 @@ public class CharityServiceImplementation implements CharityService {
 	private CharityRepository charityRepository;
 
 	@Override
-	public List<CharityRDTO> findAll() {
+	public List<CharityRPDTO> findAll() {
 		log.info("Start - CharityServiceImplementation.findAll");
 
 		List<Charity> charities = this.charityRepository.findAll();
-		List<CharityRDTO> charitiesRDTO = charities.stream().map(charity -> this.mapper.map(charity, CharityRDTO.class))
-				.collect(Collectors.toList());
+		List<CharityRPDTO> charitiesRDTO = charities.stream()
+				.map(charity -> this.mapper.map(charity, CharityRPDTO.class)).collect(Collectors.toList());
 
-		log.info("End - CharityServiceImplementation.findAll - List<CharityRDTO>: {}", charitiesRDTO);
+		log.info("End - CharityServiceImplementation.findAll - List<CharityRPDTO>: {}", charitiesRDTO);
 		return charitiesRDTO;
 	}
 
 	@Override
-	public CharityRDTO findById(Long id) {
+	public CharityRPDTO findById(Long id) {
 		log.info("Start - CharityServiceImplementation.findById - Id: {}", id);
 
 		Charity charity = this.charityProcessor.exists(id);
-		CharityRDTO charityRDTO = this.mapper.map(charity, CharityRDTO.class);
+		CharityRPDTO charityRPDTO = this.mapper.map(charity, CharityRPDTO.class);
 
-		log.info("End - CharityServiceImplementation.findById - CharityRDTO: {}", charityRDTO);
-		return charityRDTO;
+		log.info("End - CharityServiceImplementation.findById - CharityRPDTO: {}", charityRPDTO);
+		return charityRPDTO;
 	}
 
 	@Override
-	public CharityRDTO findByName(String name) {
+	public CharityRPDTO findByName(String name) {
 		log.info("Start - CharityServiceImplementation.findByName - Name: {}", name);
 
 		Charity charity = this.charityProcessor.exists(name);
-		CharityRDTO charityRDTO = this.mapper.map(charity, CharityRDTO.class);
+		CharityRPDTO charityRPDTO = this.mapper.map(charity, CharityRPDTO.class);
 
-		log.info("End - CharityServiceImplementation.findByName - CharityRDTO: {}", charityRDTO);
-		return charityRDTO;
+		log.info("End - CharityServiceImplementation.findByName - CharityRPDTO: {}", charityRPDTO);
+		return charityRPDTO;
 	}
 
 	@Override
-	public CharityRDTO include(CharityPDTO charityPDTO) {
-		log.info("Start - CharityServiceImplementation.include - CharityPDTO: {}", charityPDTO);
+	public List<OptionDTO<Long>> findOptions() {
+		log.info("Start - CharityServiceImplementation.findOptions");
 
-		this.charityProcessor.alreadyExists(charityPDTO.getName());
+		List<Charity> charities = this.charityRepository.findAll();
+		List<OptionDTO<Long>> options = charities.stream()
+				.map(sector -> OptionDTO.<Long>builder().text(sector.getName()).value(sector.getId()).build())
+				.collect(Collectors.toList());
 
-		Charity charity = this.mapper.map(charityPDTO, Charity.class);
+		log.info("End - CharityServiceImplementation.findOptions - List<OptionDTO<Long>>: {}", options);
+		return options;
+	}
+
+	@Override
+	public CharityRPDTO include(CharityRPDTO charityRPDTO) {
+		log.info("Start - CharityServiceImplementation.include - CharityRPDTO: {}", charityRPDTO);
+
+		this.charityProcessor.alreadyExists(charityRPDTO.getName());
+
+		Charity charity = this.mapper.map(charityRPDTO, Charity.class);
 		charity = this.charityRepository.save(charity);
 
-		CharityRDTO charityRDTO = this.mapper.map(charity, CharityRDTO.class);
+		charityRPDTO = this.mapper.map(charity, CharityRPDTO.class);
 
-		log.info("End - CharityServiceImplementation.include - CharityRDTO: {}", charityRDTO);
-		return charityRDTO;
+		log.info("End - CharityServiceImplementation.include - CharityRPDTO: {}", charityRPDTO);
+		return charityRPDTO;
 	}
 
 	@Override
-	public CharityRDTO remove(Long id) {
+	public CharityRPDTO edit(CharityFRPDTO charityFRPDTO) {
+		log.info("Start - CharityServiceImplementation.edit - CharityFRPDTO: {}", charityFRPDTO);
+
+		Charity charity = this.mapper.map(charityFRPDTO, Charity.class);
+		
+		charity = this.charityProcessor.merge(charity);
+		charity = this.charityRepository.save(charity);
+
+		CharityRPDTO charityRPDTO = this.mapper.map(charity, CharityRPDTO.class);
+
+		log.info("End - CharityServiceImplementation.edit - CharityRPDTO: {}", charityRPDTO);
+		return charityRPDTO;
+	}
+
+	@Override
+	public CharityRPDTO remove(Long id) {
 		log.info("Start - CharityServiceImplementation.remove - Id: {}", id);
 
 		Charity charity = this.charityProcessor.exists(id);
 		this.charityRepository.delete(charity);
 
-		CharityRDTO charityRDTO = this.mapper.map(charity, CharityRDTO.class);
+		CharityRPDTO charityRPDTO = this.mapper.map(charity, CharityRPDTO.class);
 
-		log.info("End - CharityServiceImplementation.remove - CharityRDTO: {}", charityRDTO);
-		return charityRDTO;
+		log.info("End - CharityServiceImplementation.remove - CharityRPDTO: {}", charityRPDTO);
+		return charityRPDTO;
 	}
 }

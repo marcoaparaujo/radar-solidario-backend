@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.radar.solidario.constant.Gender;
-import com.radar.solidario.dto.charity.CharityFRDTO;
+import com.radar.solidario.dto.charity.CharityFRPDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,5 +44,5 @@ public class UserHRDTO implements Serializable {
 	private Gender gender;
 	
 	@NotNull(message = "O campo 'Entidade' é obrigatório")
-	private CharityFRDTO charity;
+	private CharityFRPDTO charity;
 }

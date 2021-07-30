@@ -38,12 +38,18 @@ public class Donate implements Serializable {
 	@NotNull(message = "O campo 'Data' é obrigatório")
 	private LocalDateTime date;
 
-//	@ToString.Exclude
-//	@OneToOne(mappedBy = "donate")
-//	private User user;
+	@ToString.Exclude
+	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+	private User user;
 
 	@ToString.Exclude
 	@ManyToOne
 	@JoinColumn(name = "family_id", referencedColumnName = "id", nullable = false)
 	private Family family;
+	
+	@ToString.Exclude
+	@ManyToOne
+	@JoinColumn(name = "charity_id", referencedColumnName = "id", nullable = false)
+	private Charity charity;
 }

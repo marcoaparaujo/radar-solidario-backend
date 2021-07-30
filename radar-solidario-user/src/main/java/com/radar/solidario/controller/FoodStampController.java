@@ -77,23 +77,23 @@ public class FoodStampController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Response<FoodStampHRDTO>> include(@RequestBody @Valid FoodStampPDTO foodStampPDTO) {
-		log.info("Start - FoodStampController.register - FoodStampPDTO: {}", foodStampPDTO);
+	public ResponseEntity<Response<FoodStampHRDTO>> add(@RequestBody @Valid FoodStampPDTO foodStampPDTO) {
+		log.info("Start - FoodStampController.add - FoodStampPDTO: {}", foodStampPDTO);
 		Response<FoodStampHRDTO> response = new Response<>();
 
-		FoodStampHRDTO foodStamp = this.foodStampService.include(foodStampPDTO);
+		FoodStampHRDTO foodStamp = this.foodStampService.add(foodStampPDTO);
 		response.setData(foodStamp);
 
-		log.info("End - FoodStampController.register - FoodStampHRDTO: {}", foodStamp);
+		log.info("End - FoodStampController.add - FoodStampHRDTO: {}", foodStamp);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 
-	@DeleteMapping(params = "id")
-	public ResponseEntity<Response<FoodStampHRDTO>> remove(@RequestParam Long id) {
-		log.info("Start - FoodStampController.remove - Id: {}", id);
+	@DeleteMapping
+	public ResponseEntity<Response<FoodStampHRDTO>> remove(@RequestBody @Valid FoodStampPDTO foodStampPDTO) {
+		log.info("Start - FoodStampController.remove - FoodStampPDTO: {}", foodStampPDTO);
 		Response<FoodStampHRDTO> response = new Response<>();
 
-		FoodStampHRDTO foodStamp = this.foodStampService.remove(id);
+		FoodStampHRDTO foodStamp = this.foodStampService.remove(foodStampPDTO);
 		response.setData(foodStamp);
 
 		log.info("End - FoodStampController.remove - FoodStampHRDTO: {}", foodStamp);

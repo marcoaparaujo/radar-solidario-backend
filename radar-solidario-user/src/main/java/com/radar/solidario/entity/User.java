@@ -2,6 +2,7 @@ package com.radar.solidario.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +12,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -63,15 +67,12 @@ public class User implements Serializable {
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private Authentication authentication;
 
-//	@ToString.Exclude
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinTable(name = "donate_user", joinColumns = {
-//			@JoinColumn(name = "donate_id", referencedColumnName = "id") }, inverseJoinColumns = {
-//					@JoinColumn(name = "user_id", referencedColumnName = "id") })
-//	private Donate donate;
+	@ToString.Exclude
+	@OneToMany(mappedBy = "user")
+	private List<Donate> donate;
 
-//	@ToString.Exclude
-//	@ManyToOne
-//	@JoinColumn(name = "charity_id", referencedColumnName = "id", nullable = false)
-//	private Charity charity;
+	@ToString.Exclude
+	@ManyToOne
+	@JoinColumn(name = "charity_id", referencedColumnName = "id", nullable = false)
+	private Charity charity;
 }

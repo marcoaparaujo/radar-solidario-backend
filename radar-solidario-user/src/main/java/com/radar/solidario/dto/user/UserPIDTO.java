@@ -9,8 +9,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.radar.solidario.constant.Gender;
-import com.radar.solidario.dto.IdentificatorDTO;
 import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
+import com.radar.solidario.entity.Charity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserRDTO implements Serializable {
+public class UserPIDTO implements Serializable {
 
 	private static final long serialVersionUID = 473950750193819445L;
 
@@ -45,7 +45,7 @@ public class UserRDTO implements Serializable {
 	private Gender gender;
 
 	@NotNull(message = "O campo 'Entidade' é obrigatório")
-	private IdentificatorDTO charity;
+	private Charity charity;
 
 	@NotNull(message = "O campo 'Autenticação' é obrigatório")
 	private AuthenticationRPDTO authentication;

@@ -63,6 +63,6 @@ public class Address implements Serializable {
 	private Family family;
 
 	@ToString.Exclude
-	@OneToOne(mappedBy = "address")
+	@OneToOne(mappedBy = "address", cascade = CascadeType.PERSIST)
 	private Charity charity;
 }

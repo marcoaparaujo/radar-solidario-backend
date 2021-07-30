@@ -7,7 +7,8 @@ import org.springframework.context.annotation.Configuration;
 import com.radar.solidario.converter.authentication.AuthenticationFRDTOToJwtUser;
 import com.radar.solidario.converter.authentication.AuthenticationToAuthenticationFRDTO;
 import com.radar.solidario.converter.authentication.AuthenticationToUserRDTO;
-import com.radar.solidario.converter.user.UserPDTOToAuthentication;
+import com.radar.solidario.converter.charity.CharityRPDTOToCharity;
+import com.radar.solidario.converter.user.UserPIDTOToAuthentication;
 
 @Configuration
 public class ModelMapperConfig {
@@ -21,8 +22,11 @@ public class ModelMapperConfig {
 		modelMapper.addConverter(new AuthenticationFRDTOToJwtUser());
 		modelMapper.addConverter(new AuthenticationToAuthenticationFRDTO());
 
+		// Charity
+		modelMapper.addConverter(new CharityRPDTOToCharity());
+
 		// User
-		modelMapper.addConverter(new UserPDTOToAuthentication());
+		modelMapper.addConverter(new UserPIDTOToAuthentication());
 
 		return modelMapper;
 	}

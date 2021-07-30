@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -15,6 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @Builder
@@ -35,19 +38,20 @@ public class FoodStamp implements Serializable {
 	@NotNull(message = "O campo 'Comprimento' é obrigatório")
 	private Integer lenght;
 
-	@Column(name = "weight", nullable = false)
+	@Column(name = "weight", nullable = false, unique = true)
 	@NotNull(message = "O campo 'Peso' é obrigatório")
 	private Double weight;
 
-	@Column(name = "isAlble", nullable = false)
-	@NotNull(message = "O campo ' ' é obrigatório")
+	@Column(name = "able", nullable = false)
+	@NotNull(message = "O campo 'Disponível' é obrigatório")
 	private Boolean isAble;
 
 	@Column(name = "date", nullable = false, columnDefinition = "DATE")
 	@NotNull(message = "O campo 'Data' é obrigatório")
 	private LocalDate date;
 
-//	@ToString.Exclude
-//	@OneToOne(mappedBy = "donate")
-//	private User user;
+	@ToString.Exclude
+	@ManyToOne
+	@JoinColumn(name = "charity_id", referencedColumnName = "id", nullable = false)
+	private Charity charity;
 }
