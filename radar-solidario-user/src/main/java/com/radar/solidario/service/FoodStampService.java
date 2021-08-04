@@ -3,6 +3,7 @@ package com.radar.solidario.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.radar.solidario.dto.foodStamp.FoodStampHPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampHRDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampRDTO;
@@ -17,5 +18,5 @@ public interface FoodStampService {
 
 	FoodStampHRDTO add(FoodStampPDTO foodStampPDTO);
 
-	FoodStampHRDTO remove(FoodStampPDTO foodStampPDTO);
+	FoodStampHRDTO remove(FoodStampHPDTO foodStampHPDTO);
 }

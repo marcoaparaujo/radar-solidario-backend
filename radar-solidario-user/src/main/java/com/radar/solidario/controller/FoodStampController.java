@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.radar.solidario.dto.foodStamp.FoodStampHPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampHRDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampRDTO;
@@ -45,7 +46,7 @@ public class FoodStampController {
 		List<FoodStampHRDTO> foodStamps = this.foodStampService.findAll();
 		response.setData(foodStamps);
 
-		log.info("End - CharityController.findAll - List<FoodStampHRDTO>: {}", foodStamps);
+		log.info("End - FoodStampController.findAll - List<FoodStampHRDTO>: {}", foodStamps);
 		return ResponseEntity.ok(response);
 	}
 
@@ -89,11 +90,11 @@ public class FoodStampController {
 	}
 
 	@DeleteMapping
-	public ResponseEntity<Response<FoodStampHRDTO>> remove(@RequestBody @Valid FoodStampPDTO foodStampPDTO) {
-		log.info("Start - FoodStampController.remove - FoodStampPDTO: {}", foodStampPDTO);
+	public ResponseEntity<Response<FoodStampHRDTO>> remove(@RequestBody @Valid FoodStampHPDTO foodStampHPDTO) {
+		log.info("Start - FoodStampController.remove - FoodStampHPDTO: {}", foodStampHPDTO);
 		Response<FoodStampHRDTO> response = new Response<>();
 
-		FoodStampHRDTO foodStamp = this.foodStampService.remove(foodStampPDTO);
+		FoodStampHRDTO foodStamp = this.foodStampService.remove(foodStampHPDTO);
 		response.setData(foodStamp);
 
 		log.info("End - FoodStampController.remove - FoodStampHRDTO: {}", foodStamp);

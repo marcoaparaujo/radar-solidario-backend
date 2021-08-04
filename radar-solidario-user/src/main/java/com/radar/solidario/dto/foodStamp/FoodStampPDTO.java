@@ -1,11 +1,10 @@
 package com.radar.solidario.dto.foodStamp;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import com.radar.solidario.dto.IdentificatorDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,8 +27,7 @@ public class FoodStampPDTO implements Serializable {
 
 	@NotNull(message = "O campo 'Disponível' é obrigatório")
 	private Boolean isAble;
-
-	@NotNull(message = "O campo 'Data' é obrigatório")
-	@JsonFormat(pattern = "dd/MM/yyyy", timezone = "GMT-3", shape = JsonFormat.Shape.STRING)
-	private LocalDate date;
+	
+	@NotNull(message = "O campo 'Entidade' é obrigatório")
+	private IdentificatorDTO charity;
 }

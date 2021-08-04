@@ -52,6 +52,11 @@ public class FoodStamp implements Serializable {
 
 	@ToString.Exclude
 	@ManyToOne
+	@JoinColumn(name = "donate_id", referencedColumnName = "id")
+	private Donate donate;
+
+	@ToString.Exclude
+	@ManyToOne
 	@JoinColumn(name = "charity_id", referencedColumnName = "id", nullable = false)
 	private Charity charity;
 }

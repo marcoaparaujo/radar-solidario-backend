@@ -1,8 +1,9 @@
 package com.radar.solidario.dto.donate;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import com.radar.solidario.dto.IdentificatorDTO;
@@ -21,12 +22,6 @@ public class DonatePDTO implements Serializable {
 
 	private static final long serialVersionUID = -5154874352122727603L;
 
-	@NotNull(message = "O campo 'Data' é obrigatório")
-	private LocalDateTime date;
-
-	@NotNull(message = "O campo 'Cesta' é obrigatório")
-	private FoodStampHPDTO foodStamp;
-
 	@NotNull(message = "O campo 'Usuário' é obrigatório")
 	private IdentificatorDTO user;
 
@@ -35,4 +30,7 @@ public class DonatePDTO implements Serializable {
 
 	@NotNull(message = "O campo 'Entidade' é obrigatório")
 	private IdentificatorDTO charity;
+
+	@NotEmpty(message = "O campo 'Cestas' é obrigatório")
+	private List<FoodStampHPDTO> foodStamps;
 }
