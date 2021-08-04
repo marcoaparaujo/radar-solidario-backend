@@ -1,9 +1,11 @@
 package com.radar.solidario.service.implementation;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.radar.solidario.dto.LoginDTO;
+import com.radar.solidario.dto.charity.CharityHRDTO;
 import com.radar.solidario.dto.token.TokenFRDTO;
 import com.radar.solidario.dto.token.TokenRDTO;
 import com.radar.solidario.entity.Authentication;
@@ -18,6 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 public class SecurityServiceImplementation implements SecurityService {
+
+	@Autowired
+	private ModelMapper mapper;
 
 	@Autowired
 	private JwtUtil jwtTokenUtil;
@@ -39,8 +44,10 @@ public class SecurityServiceImplementation implements SecurityService {
 		this.securityProcessor.matchPassword(loginDTO.getPassword(), authentication.getPassword());
 
 		String token = this.securityProcessor.authenticate(loginDTO.getEmail(), loginDTO.getPassword());
+		CharityHRDTO charity = this.mapper.map(authentication.getUser().getCharity(), CharityHRDTO.class);
+
 		TokenFRDTO tokenFRDTO = TokenFRDTO.builder().name(authentication.getUser().getName()).token(token)
-				.roles(authentication.getRole()).build();
+				.charity(charity).roles(authentication.getRole()).build();
 
 		log.info("End - SecurityServiceImplementation.login - TokenFRDTO: {}", tokenFRDTO);
 		return tokenFRDTO;
