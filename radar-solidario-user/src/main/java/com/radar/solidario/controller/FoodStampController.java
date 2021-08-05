@@ -52,7 +52,7 @@ public class FoodStampController {
 
 	@Cacheable("food-stamp")
 	@GetMapping(params = "date")
-	public ResponseEntity<Response<List<FoodStampRDTO>>> findByDate(
+	public ResponseEntity<Response<List<FoodStampRDTO>>> findAllByDate(
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "dd/MM/yyyy") LocalDate date) {
 		log.info("Start - FoodStampController.findByDate - Date: {}", date);
 		Response<List<FoodStampRDTO>> response = new Response<>();
@@ -61,6 +61,19 @@ public class FoodStampController {
 		response.setData(foodStamps);
 
 		log.info("End - FoodStampController.findByDate - FoodStampRDTO: {}", foodStamps);
+		return ResponseEntity.ok(response);
+	}
+
+	@Cacheable("food-stamp")
+	@GetMapping(params = "name")
+	public ResponseEntity<Response<List<FoodStampRDTO>>> findAllByCharityName(@RequestParam String name) {
+		log.info("Start - FoodStampController.findAllByCharityName - Name: {}", name);
+		Response<List<FoodStampRDTO>> response = new Response<>();
+
+		List<FoodStampRDTO> foodStamps = this.foodStampService.findAllByCharityName(name);
+		response.setData(foodStamps);
+
+		log.info("End - FoodStampController.findAllByCharityName - FoodStampRDTO: {}", foodStamps);
 		return ResponseEntity.ok(response);
 	}
 

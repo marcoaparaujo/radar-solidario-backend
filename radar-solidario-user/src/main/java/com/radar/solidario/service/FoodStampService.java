@@ -13,6 +13,8 @@ public interface FoodStampService {
 	List<FoodStampHRDTO> findAll();
 
 	List<FoodStampRDTO> findAllByDate(LocalDate date);
+	
+	List<FoodStampRDTO> findAllByCharityName(String name);
 
 	FoodStampRDTO findById(Long id);
 

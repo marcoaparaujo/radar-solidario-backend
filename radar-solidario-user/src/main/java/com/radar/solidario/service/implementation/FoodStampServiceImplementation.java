@@ -60,6 +60,18 @@ public class FoodStampServiceImplementation implements FoodStampService {
 		log.info("End - FoodStampServiceImplementation.findAllByDate - List<FoodStampRDTO>: {}", foodStampsRDTO);
 		return foodStampsRDTO;
 	}
+	
+	@Override
+	public List<FoodStampRDTO> findAllByCharityName(String name) {
+		log.info("Start - FoodStampServiceImplementation.findAllByCharityName - Name: {}", name);
+
+		List<FoodStamp> foodStamps = this.foodStampRepository.findAllByCharityName(name);
+		List<FoodStampRDTO> foodStampsRDTO = foodStamps.stream()
+				.map(foodStamp -> this.mapper.map(foodStamp, FoodStampRDTO.class)).collect(Collectors.toList());
+
+		log.info("End - FoodStampServiceImplementation.findAllByCharityName - List<FoodStampRDTO>: {}", foodStampsRDTO);
+		return foodStampsRDTO;
+	}
 
 	@Override
 	public FoodStampRDTO findById(Long id) {

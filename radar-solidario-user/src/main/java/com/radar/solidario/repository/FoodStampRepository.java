@@ -15,7 +15,10 @@ public interface FoodStampRepository extends JpaRepository<FoodStamp, Long> {
 
 	@Transactional(readOnly = true)
 	List<FoodStamp> findAllByDate(LocalDate date);
-	
+
+	@Transactional(readOnly = true)
+	List<FoodStamp> findAllByCharityName(String name);
+
 	@Transactional(readOnly = true)
 	Optional<FoodStamp> findByWeight(Double weight);
 }
