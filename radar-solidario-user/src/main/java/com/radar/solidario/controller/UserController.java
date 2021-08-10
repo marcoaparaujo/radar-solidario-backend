@@ -32,16 +32,29 @@ public class UserController {
 	@Autowired
 	private SecurityService securityService;
 
-	@PostMapping
-	public ResponseEntity<Response<TokenFRDTO>> include(@RequestBody @Valid UserPDTO userPDTO) {
-		log.info("Start - UserController.register - UserPDTO: {}", userPDTO);
+	@PostMapping("/voluntary")
+	public ResponseEntity<Response<TokenFRDTO>> includeVoluntary(@RequestBody @Valid UserPDTO userPDTO) {
+		log.info("Start - UserController.includeVoluntary - UserPDTO: {}", userPDTO);
 		Response<TokenFRDTO> response = new Response<>();
 
 		LoginDTO login = this.userService.includeVoluntary(userPDTO);
 		TokenFRDTO token = this.securityService.login(login);
 		response.setData(token);
 
-		log.info("End - UserController.register - TokenFRDTO: {}", token);
+		log.info("End - UserController.includeVoluntary - TokenFRDTO: {}", token);
+		return ResponseEntity.status(HttpStatus.CREATED).body(response);
+	}
+	
+	@PostMapping("/administrator")
+	public ResponseEntity<Response<TokenFRDTO>> includeAdministrator(@RequestBody @Valid UserPDTO userPDTO) {
+		log.info("Start - UserController.includeAdministrator - UserPDTO: {}", userPDTO);
+		Response<TokenFRDTO> response = new Response<>();
+
+		LoginDTO login = this.userService.includeVoluntary(userPDTO);
+		TokenFRDTO token = this.securityService.login(login);
+		response.setData(token);
+
+		log.info("End - UserController.includeAdministrator - TokenFRDTO: {}", token);
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	}
 }

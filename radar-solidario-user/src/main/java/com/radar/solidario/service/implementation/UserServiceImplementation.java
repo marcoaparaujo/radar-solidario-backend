@@ -46,8 +46,28 @@ public class UserServiceImplementation implements UserService {
 
 		UserPIDTO userPIDTO = this.mapper.map(userPDTO, UserPIDTO.class);
 		userPIDTO.setCharity(charity);
-		
+
 		List<AuthenticationRole> roles = Arrays.asList(AuthenticationRole.VOLUNTARY);
+
+		AuthenticationRPDTO authenticationRDTO = this.authenticationService.include(userPIDTO, roles);
+		LoginDTO loginDTO = this.mapper.map(authenticationRDTO, LoginDTO.class);
+
+		log.info("End - UserServiceImplementation.include - LoginDTO: {}", loginDTO);
+		return loginDTO;
+	}
+
+	@Override
+	public LoginDTO includeAdministrator(UserPDTO userPDTO) {
+		log.info("Start - UserServiceImplementation.include - UserPDTO: {}", userPDTO);
+
+		this.userProcessor.alreadyExists(userPDTO.getCpf());
+
+		Charity charity = this.charityProcessor.exists(userPDTO.getCharity().getId());
+
+		UserPIDTO userPIDTO = this.mapper.map(userPDTO, UserPIDTO.class);
+		userPIDTO.setCharity(charity);
+
+		List<AuthenticationRole> roles = Arrays.asList(AuthenticationRole.ADMINISTRATOR);
 
 		AuthenticationRPDTO authenticationRDTO = this.authenticationService.include(userPIDTO, roles);
 		LoginDTO loginDTO = this.mapper.map(authenticationRDTO, LoginDTO.class);

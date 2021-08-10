@@ -70,7 +70,7 @@ public class CharityServiceImplementation implements CharityService {
 
 		List<Charity> charities = this.charityRepository.findAll();
 		List<OptionDTO<Long>> options = charities.stream()
-				.map(sector -> OptionDTO.<Long>builder().text(sector.getName()).value(sector.getId()).build())
+				.map(charity -> OptionDTO.<Long>builder().text(charity.getName()).value(charity.getId()).build())
 				.collect(Collectors.toList());
 
 		log.info("End - CharityServiceImplementation.findOptions - List<OptionDTO<Long>>: {}", options);

@@ -6,4 +6,6 @@ import com.radar.solidario.dto.user.UserPDTO;
 public interface UserService {
 
 	LoginDTO includeVoluntary(UserPDTO userPDTO);
+	
+	LoginDTO includeAdministrator(UserPDTO userPDTO);
 }

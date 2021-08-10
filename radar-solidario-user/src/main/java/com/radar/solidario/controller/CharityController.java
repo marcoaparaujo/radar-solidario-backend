@@ -1,5 +1,7 @@
 package com.radar.solidario.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.radar.solidario.dto.OptionDTO;
 import com.radar.solidario.dto.charity.CharityFRPDTO;
 import com.radar.solidario.dto.charity.CharityRPDTO;
 import com.radar.solidario.service.CharityService;
@@ -55,6 +58,19 @@ public class CharityController {
 		response.setData(charity);
 
 		log.info("End - CharityController.findByName - CharityRPDTO: {}", charity);
+		return ResponseEntity.ok(response);
+	}
+
+	@Cacheable("charity")
+	@GetMapping(value = "/options")
+	public ResponseEntity<Response<List<OptionDTO<Long>>>> findOptions() {
+		log.info("Start - CharityController.findOptions");
+		Response<List<OptionDTO<Long>>> response = new Response<>();
+
+		List<OptionDTO<Long>> options = this.charityService.findOptions();
+		response.setData(options);
+
+		log.info("End - CharityController.findOptions - List<OptionDTO<Long>>: {}", options);
 		return ResponseEntity.ok(response);
 	}
 
