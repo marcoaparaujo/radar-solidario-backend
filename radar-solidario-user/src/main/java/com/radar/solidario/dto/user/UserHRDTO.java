@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.radar.solidario.constant.Gender;
 import com.radar.solidario.dto.charity.CharityFRPDTO;
 
@@ -29,6 +30,7 @@ public class UserHRDTO implements Serializable {
 	private String name;
 
 	@NotNull(message = "O campo 'Data de Nascimento' é obrigatório")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private LocalDate birth;
 
 	@NotNull(message = "O campo 'CPF' é obrigatório")

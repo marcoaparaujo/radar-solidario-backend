@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.radar.solidario.constant.Gender;
 
 import lombok.AllArgsConstructor;
@@ -49,6 +50,7 @@ public class User implements Serializable {
 
 	@Column(name = "birth", nullable = false)
 	@NotNull(message = "O campo 'Data de Nascimento' é obrigatório")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private LocalDate birth;
 
 	@Column(name = "cpf", unique = true, nullable = false)
