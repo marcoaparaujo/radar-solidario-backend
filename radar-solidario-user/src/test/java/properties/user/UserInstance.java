@@ -9,15 +9,15 @@ import properties.authentication.AuthenticationInstance;
 public class UserInstance extends UserProperties {
 
 	public static User instace() {
-		return User.builder().id(ID).cpf(CPF).name(NAME).cell(CELL).birth(BIRTH).gender(GENDER).build();
+		return User.builder().id(ID).cpf(CPF).name(NAME).cell(CELL).birth(BIRTH).build();
 	}
 
 	public static UserHRDTO instaceUserHRDTO() {
-		return UserHRDTO.builder().cpf(CPF).name(NAME).cell(CELL).birth(BIRTH).gender(GENDER).build();
+		return UserHRDTO.builder().cpf(CPF).name(NAME).cell(CELL).birth(BIRTH).build();
 	}
 
 	public static UserPDTO instaceUserPDTO() {
-		return UserPDTO.builder().cpf(CPF).name(NAME).cell(CELL).birth(BIRTH).gender(GENDER)
+		return UserPDTO.builder().cpf(CPF).name(NAME).cell(CELL).birth(BIRTH)
 				.authentication(AuthenticationInstance.instanceAuthenticationRPDTO()).build();
 	}
 }

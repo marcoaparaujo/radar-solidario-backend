@@ -14,7 +14,7 @@ public class UserPIDTOToAuthentication implements Converter<UserPIDTO, Authentic
 		UserPIDTO source = context.getSource();
 
 		User user = User.builder().name(source.getName()).birth(source.getBirth()).cell(source.getCell())
-				.cpf(source.getCpf()).gender(source.getGender()).charity(source.getCharity()).build();
+				.cpf(source.getCpf()).charity(source.getCharity()).build();
 
 		return Authentication.builder().email(source.getAuthentication().getEmail())
 				.password(source.getAuthentication().getPassword()).user(user).build();

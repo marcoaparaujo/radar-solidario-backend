@@ -17,7 +17,6 @@ public class AuthenticationToUserRDTO implements Converter<Authentication, UserR
 				.password(source.getPassword()).build();
 
 		return UserRDTO.builder().name(source.getUser().getName()).birth(source.getUser().getBirth())
-				.cell(source.getUser().getCell()).cpf(source.getUser().getCpf()).gender(source.getUser().getGender())
-				.authentication(authentication).build();
+				.cell(source.getUser().getCell()).cpf(source.getUser().getCpf()).authentication(authentication).build();
 	}
 }

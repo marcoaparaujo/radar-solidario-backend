@@ -14,8 +14,7 @@ public class AuthenticationToAuthenticationFRDTO implements Converter<Authentica
 		Authentication source = context.getSource();
 
 		UserHRDTO user = UserHRDTO.builder().name(source.getUser().getName()).birth(source.getUser().getBirth())
-				.cell(source.getUser().getCell()).cpf(source.getUser().getCpf()).gender(source.getUser().getGender())
-				.build();
+				.cell(source.getUser().getCell()).cpf(source.getUser().getCpf()).build();
 
 		return AuthenticationFRDTO.builder().id(source.getId()).email(source.getEmail()).password(source.getPassword())
 				.isLocked(source.getIsLocked()).role(source.getRole()).user(user).build();

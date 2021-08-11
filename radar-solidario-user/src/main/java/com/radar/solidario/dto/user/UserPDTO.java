@@ -3,13 +3,10 @@ package com.radar.solidario.dto.user;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.radar.solidario.constant.Gender;
 import com.radar.solidario.dto.IdentificatorDTO;
 import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 
@@ -42,13 +39,9 @@ public class UserPDTO implements Serializable {
 	@Size(min = 16, max = 16, message = "O campo 'Nº de Celular' deve conter 16 caracteres")
 	private String cell;
 
-	@Enumerated(EnumType.STRING)
-	@NotNull(message = "O campo 'Gênero' é obrigatório")
-	private Gender gender;
-	
 	@NotNull(message = "O campo 'Entidade' é obrigatório")
 	private IdentificatorDTO charity;
-	
+
 	@NotNull(message = "O campo 'Autenticação' é obrigatório")
 	private AuthenticationRPDTO authentication;
 }

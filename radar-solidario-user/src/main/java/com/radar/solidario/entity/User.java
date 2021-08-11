@@ -7,8 +7,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +19,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.radar.solidario.constant.Gender;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -60,10 +57,6 @@ public class User implements Serializable {
 	@Column(name = "cell", nullable = true)
 	@Size(min = 16, max = 16, message = "O campo 'Nº de Celular' deve conter 16 caracteres")
 	private String cell;
-
-	@Enumerated(EnumType.STRING)
-	@Column(name = "gender", nullable = false)
-	private Gender gender;
 
 	@ToString.Exclude
 	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)

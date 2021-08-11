@@ -2,13 +2,10 @@ package properties.user;
 
 import java.time.LocalDate;
 
-import com.radar.solidario.constant.Gender;
-
 import properties.GeneralProperties;
 
 public class UserProperties extends GeneralProperties {
 
-	public static final Gender GENDER = Gender.MALE;
 	public static final String NAME = "Carl Jhonson";
 	public static final String CPF = "993.725.070-67";
 	public static final String CELL = "(00) 90000-0000";
