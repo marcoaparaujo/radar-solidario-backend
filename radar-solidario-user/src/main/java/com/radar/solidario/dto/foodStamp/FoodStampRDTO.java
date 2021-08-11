@@ -33,6 +33,6 @@ public class FoodStampRDTO implements Serializable {
 	private Boolean isAble;
 
 	@NotNull(message = "O campo 'Data' é obrigatório")
-	@JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
 	private LocalDate date;
 }
