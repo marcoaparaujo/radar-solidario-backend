@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
 import com.radar.solidario.dto.address.AddressPDTO;
+import com.radar.solidario.dto.donate.DonatePrevisionDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +26,7 @@ public class FamilyRDTO implements Serializable {
 
 	@NotNull(message = "O campo 'Id' é obrigatório")
 	private Long id;
-	
+
 	@NotBlank(message = "O campo 'Nome do Responsável' é obrigatório")
 	@Size(max = 255, message = "O campo 'Nome do Responsável' deve conter no máximo 255 caracteres")
 	private String head;
@@ -40,4 +41,7 @@ public class FamilyRDTO implements Serializable {
 
 	@NotNull(message = "O campo 'Endereço' é obrigatório")
 	private AddressPDTO address;
+
+	@NotNull(message = "O campo 'Previsão de doação' é obrigatório")
+	private DonatePrevisionDTO donatePrevision;
 }
