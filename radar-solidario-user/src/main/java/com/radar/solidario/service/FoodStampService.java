@@ -3,6 +3,7 @@ package com.radar.solidario.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.radar.solidario.dto.OptionDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampHPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampHRDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampPDTO;
@@ -15,8 +16,10 @@ public interface FoodStampService {
 	List<FoodStampRDTO> findAllByDate(LocalDate date);
 	
 	List<FoodStampRDTO> findAllByCharityName(String name);
-
+	
 	FoodStampRDTO findById(Long id);
+	
+	List<OptionDTO<Long>> findOptions();
 
 	FoodStampHRDTO add(FoodStampPDTO foodStampPDTO);
 

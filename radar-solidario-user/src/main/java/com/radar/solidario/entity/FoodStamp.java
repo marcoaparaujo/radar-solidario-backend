@@ -34,9 +34,9 @@ public class FoodStamp implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "lenght", nullable = false)
+	@Column(name = "length", nullable = false)
 	@NotNull(message = "O campo 'Comprimento' é obrigatório")
-	private Integer lenght;
+	private Integer length;
 
 	@Column(name = "weight", nullable = false, unique = true)
 	@NotNull(message = "O campo 'Peso' é obrigatório")

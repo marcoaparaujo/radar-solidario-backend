@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.radar.solidario.dto.OptionDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampHPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampHRDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampPDTO;
@@ -87,6 +88,19 @@ public class FoodStampController {
 		response.setData(foodStamp);
 
 		log.info("End - FoodStampController.findById - FoodStampRDTO: {}", foodStamp);
+		return ResponseEntity.ok(response);
+	}
+
+	@Cacheable("food-stamp")
+	@GetMapping(value = "/options")
+	public ResponseEntity<Response<List<OptionDTO<Long>>>> findOptions() {
+		log.info("Start - FoodStampController.findOptions");
+		Response<List<OptionDTO<Long>>> response = new Response<>();
+
+		List<OptionDTO<Long>> options = this.foodStampService.findOptions();
+		response.setData(options);
+
+		log.info("End - FoodStampController.findOptions - List<OptionDTO<Long>>: {}", options);
 		return ResponseEntity.ok(response);
 	}
 

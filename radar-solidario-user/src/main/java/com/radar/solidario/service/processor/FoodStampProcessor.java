@@ -49,8 +49,8 @@ public class FoodStampProcessor {
 
 		Optional<FoodStamp> optFoodStamp = this.foodStampRepository.findByWeight(foodStamp.getWeight());
 		if (optFoodStamp.isPresent()) {
-			Integer actualLenght = optFoodStamp.get().getLenght() + foodStamp.getLenght();
-			optFoodStamp.get().setLenght(actualLenght);
+			Integer actualLength = optFoodStamp.get().getLength() + foodStamp.getLength();
+			optFoodStamp.get().setLength(actualLength);
 
 			foodStamp = optFoodStamp.get();
 		}
@@ -64,8 +64,8 @@ public class FoodStampProcessor {
 
 		Optional<FoodStamp> optFoodStamp = this.foodStampRepository.findByWeight(foodStamp.getWeight());
 		if (optFoodStamp.isPresent()) {
-			Integer actualLenght = Math.max(0, optFoodStamp.get().getLenght() - foodStamp.getLenght());
-			optFoodStamp.get().setLenght(actualLenght);
+			Integer actualLenght = Math.max(0, optFoodStamp.get().getLength() - foodStamp.getLength());
+			optFoodStamp.get().setLength(actualLenght);
 
 			foodStamp = optFoodStamp.get();
 		}

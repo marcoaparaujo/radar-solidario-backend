@@ -21,5 +21,5 @@ public class FoodStampHPDTO implements Serializable {
 	private Double weight;
 
 	@NotNull(message = "O campo 'Quantidade' é obrigatório")
-	private Integer lenght;
+	private Integer length;
 }

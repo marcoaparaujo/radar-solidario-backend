@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.radar.solidario.dto.OptionDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampHPDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampHRDTO;
 import com.radar.solidario.dto.foodStamp.FoodStampPDTO;
@@ -60,7 +61,7 @@ public class FoodStampServiceImplementation implements FoodStampService {
 		log.info("End - FoodStampServiceImplementation.findAllByDate - List<FoodStampRDTO>: {}", foodStampsRDTO);
 		return foodStampsRDTO;
 	}
-	
+
 	@Override
 	public List<FoodStampRDTO> findAllByCharityName(String name) {
 		log.info("Start - FoodStampServiceImplementation.findAllByCharityName - Name: {}", name);
@@ -82,6 +83,18 @@ public class FoodStampServiceImplementation implements FoodStampService {
 
 		log.info("End - FoodStampServiceImplementation.findById - FoodStampRDTO: {}", foodStampRDTO);
 		return foodStampRDTO;
+	}
+
+	@Override
+	public List<OptionDTO<Long>> findOptions() {
+		log.info("Start - FoodStampServiceImplementation.findOptions");
+
+		List<FoodStamp> foodStamps = this.foodStampRepository.findAll();
+		List<OptionDTO<Long>> options = foodStamps.stream().map(foodStamp -> OptionDTO.<Long>builder()
+				.text(foodStamp.getWeight().toString()).value(foodStamp.getId()).build()).collect(Collectors.toList());
+
+		log.info("End - FoodStampServiceImplementation.findOptions - List<OptionDTO<Long>>: {}", options);
+		return options;
 	}
 
 	@Override

@@ -1,19 +1,15 @@
 package com.radar.solidario.service.implementation;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.radar.solidario.dto.donate.DonateDTO;
 import com.radar.solidario.dto.donate.DonatePDTO;
 import com.radar.solidario.dto.donate.DonateRDTO;
-import com.radar.solidario.dto.family.FamilyRDTO;
 import com.radar.solidario.entity.Charity;
 import com.radar.solidario.entity.Donate;
 import com.radar.solidario.entity.Family;
@@ -99,28 +95,5 @@ public class DonateServiceImplementation implements DonateService {
 
 		log.info("End - DonateServiceImplementation.donate - DonateRDTO: {}", donateRDTO);
 		return donateRDTO;
-	}
-
-	@Override
-	public DonateDTO findLastFamilyDonationById(Long id) {
-		log.info("Start - DonateServiceImplementation.findLastFamilyDonationById - Id: {}", id);
-		Family family = this.familyProcessor.exists(id);
-		FamilyRDTO familyRDTO = this.mapper.map(family, FamilyRDTO.class);
-		DonateDTO donateDTO = DonateDTO.builder().family(familyRDTO).nextDonation(LocalDate.now().plusDays(30)).build();
-
-		Optional<Donate> opt = this.donateRepository.findLastDonationById(family.getId());
-		if (opt.isEmpty()) {
-			donateDTO.setReleased(true);
-			donateDTO.setLastDonation(null);
-		} else {
-			LocalDate lastDonate = opt.get().getDate().toLocalDate();
-			Boolean released = lastDonate.plusDays(30).compareTo(LocalDate.now().plusDays(30)) >= 0 ? Boolean.TRUE
-					: Boolean.FALSE;
-			donateDTO.setReleased(released);
-			donateDTO.setLastDonation(lastDonate);
-		}
-
-		log.info("End - DonateServiceImplementation.findLastFamilyDonationById - DonateDTO: {}", donateDTO);
-		return donateDTO;
 	}
 }

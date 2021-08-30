@@ -27,7 +27,7 @@ public class FoodStampRDTO implements Serializable {
 	private Double weight;
 
 	@NotNull(message = "O campo 'Quantidade' é obrigatório")
-	private Integer lenght;
+	private Integer length;
 
 	@NotNull(message = "O campo 'Disponível' é obrigatório")
 	private Boolean isAble;
