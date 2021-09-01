@@ -1,11 +1,11 @@
 version: '3'
 
 services:
-  rs-postgres:
-    container_name: rs-postgres
+  ud-postgres:
+    container_name: ud-postgres
     image: postgres:latest
     environment:
-      - POSTGRES_DB=radar-solidario
+      - POSTGRES_DB=user-data
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
     ports:
@@ -16,8 +16,8 @@ services:
     networks:
       - postgres-network
       
-  rs-pgadmin:
-    container_name: rs-pgadmin
+  ud-pgadmin:
+    container_name: ud-pgadmin
     image: dpage/pgadmin4:latest
     environment:
       - PGADMIN_DEFAULT_EMAIL=projetos.uniacademia@gmail.com
@@ -25,7 +25,7 @@ services:
     ports:
       - "15532:80"
     depends_on:
-      - rs-postgres
+      - ud-postgres
     networks:
       - postgres-network
 

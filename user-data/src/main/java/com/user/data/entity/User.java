@@ -36,7 +36,7 @@ public class User implements Serializable {
 	@Convert(converter = StringEncryptor.class)
 	private String name;
 
-	@Column(name = "nis", nullable = false)
+	@Column(name = "nis", unique = true, nullable = false)
 	@Convert(converter = StringEncryptor.class)
 	private String nis;
 

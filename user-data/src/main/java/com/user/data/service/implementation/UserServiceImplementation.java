@@ -50,4 +50,14 @@ public class UserServiceImplementation implements UserService {
 		log.info("End - UserServiceImplementation.findByNis - UserRDTO: {}", userRDTO);
 		return userRDTO;
 	}
+
+	@Override
+	public void include(UserRDTO userRDTO) {
+		User user = new User();
+		user.setNis(userRDTO.getNis());
+		user.setName(userRDTO.getName());
+		user.setBirth(userRDTO.getBirth().toString());
+		
+		this.userRepository.save(user);
+	}
 }

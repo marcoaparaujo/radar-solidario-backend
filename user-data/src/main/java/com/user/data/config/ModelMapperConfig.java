@@ -8,7 +8,7 @@ import com.user.data.converter.user.UserToUserRDTO;
 
 @Configuration
 public class ModelMapperConfig {
-
+	
 	@Bean
 	public ModelMapper modelMapper() {
 		ModelMapper modelMapper = new ModelMapper();

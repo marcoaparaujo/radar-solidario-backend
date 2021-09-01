@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,5 +50,11 @@ public class UserController {
 
 		log.info("End - UserController.findAllByName - List<UserRDTO>: {}", userRDTOs);
 		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping
+	public BodyBuilder include(@RequestBody UserRDTO user) {
+		this.userService.include(user);
+		return ResponseEntity.ok();
 	}
 }

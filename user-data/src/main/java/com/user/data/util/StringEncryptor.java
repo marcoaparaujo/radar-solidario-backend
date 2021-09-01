@@ -1,7 +1,12 @@
 package com.user.data.util;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.Key;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.Provider;
 import java.util.Base64;
 
 import javax.crypto.BadPaddingException;
@@ -10,26 +15,21 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.persistence.AttributeConverter;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-@Component
-@PropertySource("classpath:security.properties")
-public final class StringEncryptor implements AttributeConverter<String, String> {
+import com.user.data.constant.EncryptorContants;
 
-	private final Key key;
-	private final Cipher cipher;
+public final class StringEncryptor extends EncryptorContants implements AttributeConverter<String, String> {
 
-	@Value("${encryptor.string.type}")
-	private String type;
-
-	@Value("${encryptor.string.secret}")
-	private byte[] secret;
+	private Key key;
+	private Cipher cipher;
+	private Provider provider;
 
 	public StringEncryptor() throws Exception {
-		this.key = new SecretKeySpec(this.secret, this.type);
-		this.cipher = Cipher.getInstance(this.type);
+		this.provider = new BouncyCastleProvider();
+		this.key = this.buildKey(PASSWORD.toCharArray());
+
+		this.cipher = Cipher.getInstance(ALGORITHM, this.provider);
 	}
 
 	@Override
@@ -50,5 +50,13 @@ public final class StringEncryptor implements AttributeConverter<String, String>
 		} catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
 			throw new IllegalStateException(e);
 		}
+	}
+
+	private Key buildKey(char[] password) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+		MessageDigest digester = MessageDigest.getInstance(PASSWORD_HASH_ALGORITHM, this.provider);
+		digester.update(String.valueOf(password).getBytes(StandardCharsets.UTF_8));
+
+		byte[] byteKey = digester.digest();
+		return new SecretKeySpec(byteKey, ALGORITHM);
 	}
 }
