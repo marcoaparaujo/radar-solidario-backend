@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.radar.solidario.dto.LoginDTO;
 import com.radar.solidario.dto.authentication.AuthenticationRPDTO;
 import com.radar.solidario.dto.user.UserPDTO;
+import com.radar.solidario.service.processor.CharityProcessor;
 import com.radar.solidario.service.processor.UserProcessor;
 
 import properties.authentication.AuthenticationInstance;
@@ -43,6 +44,9 @@ public class UserServiceImplementationTest extends FamilyProperties {
 
 	@Mock
 	private UserProcessor userProcessor;
+
+	@Mock
+	private CharityProcessor charityProcessor;
 
 	@Mock
 	private AuthenticationServiceImplementation authenticationService;

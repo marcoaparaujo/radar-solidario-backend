@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,13 +16,17 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import com.radar.solidario.dto.donate.DonatePrevisionDTO;
 import com.radar.solidario.dto.family.FamilyHRDTO;
 import com.radar.solidario.dto.family.FamilyPDTO;
 import com.radar.solidario.dto.family.FamilyRDTO;
+import com.radar.solidario.entity.Donate;
 import com.radar.solidario.entity.Family;
 import com.radar.solidario.repository.FamilyRepository;
+import com.radar.solidario.service.processor.DonateProcessor;
 import com.radar.solidario.service.processor.FamilyProcessor;
 
+import properties.donate.DonateInstance;
 import properties.family.FamilyInstance;
 import properties.family.FamilyProperties;
 
@@ -41,11 +47,20 @@ public class FamilyServiceImplementationTest extends FamilyProperties {
 	@Mock
 	private FamilyHRDTO familyHRDTO;
 
+	@Mock
+	private List<Donate> donates;
+
+	@Mock
+	private DonatePrevisionDTO donatePrevisionDTO;
+
 	@Spy
 	private ModelMapper mapper;
 
 	@Mock
 	private FamilyProcessor familyProcessor;
+
+	@Mock
+	private DonateProcessor donateProcessor;
 
 	@Mock
 	private FamilyRepository familyRepository;
@@ -61,12 +76,16 @@ public class FamilyServiceImplementationTest extends FamilyProperties {
 		this.familyRDTO = FamilyInstance.instaceFamilyRDTO();
 		this.familyPDTO = FamilyInstance.instanceFamilyPDTO();
 		this.familyHRDTO = FamilyInstance.instaceFamilyHRDTO();
+
+		this.donates = DonateInstance.instaceDonates(1);
+		this.donatePrevisionDTO = DonateInstance.instaceDonatePrevisionDTO();
 	}
 
 	@Test
 	@DisplayName("Find a family by Id")
 	public void findById() {
 		when(this.familyProcessor.exists(ID)).thenReturn(this.family);
+		when(this.donateProcessor.getLastDonate(this.donates)).thenReturn(this.donatePrevisionDTO);
 
 		FamilyRDTO response = this.familyService.findById(ID);
 
@@ -77,6 +96,7 @@ public class FamilyServiceImplementationTest extends FamilyProperties {
 	@DisplayName("Find a family by NIS")
 	public void findByNis() {
 		when(this.familyProcessor.existsNis(NIS)).thenReturn(this.family);
+		when(this.donateProcessor.getLastDonate(this.donates)).thenReturn(this.donatePrevisionDTO);
 
 		FamilyRDTO response = this.familyService.findByNis(NIS);
 
@@ -87,6 +107,7 @@ public class FamilyServiceImplementationTest extends FamilyProperties {
 	@DisplayName("Find a family by CPF")
 	public void findByCpf() {
 		when(this.familyProcessor.existsCpf(CPF)).thenReturn(this.family);
+		when(this.donateProcessor.getLastDonate(this.donates)).thenReturn(this.donatePrevisionDTO);
 
 		FamilyRDTO response = this.familyService.findByCpf(CPF);
 

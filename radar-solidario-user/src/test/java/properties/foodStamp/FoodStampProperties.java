@@ -2,7 +2,7 @@ package properties.foodStamp;
 
 import java.time.LocalDate;
 
-import properties.GeneralProperties;
+import properties.general.GeneralProperties;
 
 public class FoodStampProperties extends GeneralProperties {
 
