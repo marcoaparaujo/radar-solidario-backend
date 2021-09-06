@@ -32,6 +32,15 @@ public class FoodStampProcessorTest extends FoodStampProperties {
 
 	@Mock
 	private FoodStamp foodStamp;
+	
+	@Mock
+	private FoodStamp foodStampMergeAdd;
+
+	@Mock
+	private FoodStamp foodStampMergeRemove;
+
+	@Mock
+	private Optional<FoodStamp> optFoodStamp;
 
 	@MockBean
 	private FoodStampRepository foodStampRepository;
@@ -42,6 +51,9 @@ public class FoodStampProcessorTest extends FoodStampProperties {
 	@BeforeEach
 	public void init() {
 		this.foodStamp = FoodStampInstance.instace();
+		this.optFoodStamp = FoodStampInstance.instaceOptional();
+		this.foodStampMergeAdd = FoodStampInstance.instaceMergeAdd();
+		this.foodStampMergeRemove = FoodStampInstance.instaceMergeRemove();
 	}
 
 	@Test
@@ -65,5 +77,52 @@ public class FoodStampProcessorTest extends FoodStampProperties {
 		});
 
 		assertEquals(ErrorCode.FOOD_STAMP_NOT_FOUND.getMessage(), exception.getMessage());
+		verify(this.foodStampRepository, times(1)).findById(ID);
+	}
+
+	@Test
+	@DisplayName("Fetch a food weight")
+	public void existsWeight() {
+		when(this.foodStampRepository.findByWeight(WEIGHT)).thenReturn(Optional.of(this.foodStamp));
+
+		FoodStamp response = this.foodStampProcessor.exists(WEIGHT);
+
+		assertEquals(this.foodStamp, response);
+		verify(this.foodStampRepository, times(1)).findByWeight(WEIGHT);
+	}
+
+	@Test
+	@DisplayName("Fetch a non existent food weight")
+	public void existsWeightNotFound() {
+		when(this.foodStampRepository.findByWeight(WEIGHT)).thenReturn(Optional.empty());
+
+		FoodStampNotFoundException exception = assertThrows(FoodStampNotFoundException.class, () -> {
+			this.foodStampProcessor.exists(WEIGHT);
+		});
+
+		assertEquals(ErrorCode.FOOD_STAMP_NOT_FOUND.getMessage(), exception.getMessage());
+		verify(this.foodStampRepository, times(1)).findByWeight(WEIGHT);
+	}
+
+	@Test
+	@DisplayName("Make a food blend add")
+	public void mergeAdd() {
+		when(this.foodStampRepository.findByWeight(WEIGHT)).thenReturn(this.optFoodStamp);
+
+		FoodStamp response = this.foodStampProcessor.mergeAdd(this.foodStamp);
+
+		assertEquals(this.foodStampMergeAdd, response);
+		verify(this.foodStampRepository, times(1)).findByWeight(WEIGHT);
+	}
+
+	@Test
+	@DisplayName("Do a food blend remove")
+	public void mergeRemove() {
+		when(this.foodStampRepository.findByWeight(WEIGHT)).thenReturn(this.optFoodStamp);
+
+		FoodStamp response = this.foodStampProcessor.mergeRemove(this.foodStamp);
+
+		assertEquals(this.foodStampMergeRemove, response);
+		verify(this.foodStampRepository, times(1)).findByWeight(WEIGHT);
 	}
 }

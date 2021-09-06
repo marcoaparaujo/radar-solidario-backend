@@ -8,6 +8,7 @@ import com.radar.solidario.dto.LoginDTO;
 import com.radar.solidario.dto.charity.CharityHRDTO;
 import com.radar.solidario.dto.token.TokenFRDTO;
 import com.radar.solidario.dto.token.TokenRDTO;
+import com.radar.solidario.dto.user.UserTokenHRDTO;
 import com.radar.solidario.entity.Authentication;
 import com.radar.solidario.repository.AuthenticationRepository;
 import com.radar.solidario.service.SecurityService;
@@ -44,10 +45,12 @@ public class SecurityServiceImplementation implements SecurityService {
 		this.securityProcessor.matchPassword(loginDTO.getPassword(), authentication.getPassword());
 
 		String token = this.securityProcessor.authenticate(loginDTO.getEmail(), loginDTO.getPassword());
+		
+		UserTokenHRDTO userTokenHRDTO = this.mapper.map(authentication.getUser(), UserTokenHRDTO.class);
 		CharityHRDTO charity = this.mapper.map(authentication.getUser().getCharity(), CharityHRDTO.class);
-
-		TokenFRDTO tokenFRDTO = TokenFRDTO.builder().name(authentication.getUser().getName()).token(token)
-				.charity(charity).roles(authentication.getRole()).build();
+		
+		TokenFRDTO tokenFRDTO = TokenFRDTO.builder().token(token).charity(charity).user(userTokenHRDTO)
+				.roles(authentication.getRole()).build();
 
 		log.info("End - SecurityServiceImplementation.login - TokenFRDTO: {}", tokenFRDTO);
 		return tokenFRDTO;

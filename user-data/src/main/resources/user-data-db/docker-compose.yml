@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  ud-postgres:
+    container_name: ud-postgres
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=user-data
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgresql:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
+    networks:
+      - postgres-network
+      
+  ud-pgadmin:
+    container_name: ud-pgadmin
+    image: dpage/pgadmin4:latest
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=projetos.uniacademia@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    ports:
+      - "15532:80"
+    depends_on:
+      - ud-postgres
+    networks:
+      - postgres-network
+
+networks: 
+  postgres-network:
+    driver: bridge
+
+volumes:
+  postgresql:
+  postgresql_data:

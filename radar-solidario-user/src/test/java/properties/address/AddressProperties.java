@@ -1,6 +1,6 @@
 package properties.address;
 
-import properties.GeneralProperties;
+import properties.general.GeneralProperties;
 
 public class AddressProperties extends GeneralProperties {
 

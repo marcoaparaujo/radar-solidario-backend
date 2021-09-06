@@ -1,6 +1,6 @@
 package properties.family;
 
-import properties.GeneralProperties;
+import properties.general.GeneralProperties;
 
 public class FamilyProperties extends GeneralProperties {
 

@@ -1,6 +1,6 @@
 package properties.authentication;
 
-import properties.GeneralProperties;
+import properties.general.GeneralProperties;
 
 public class AuthenticationProperties extends GeneralProperties {
 

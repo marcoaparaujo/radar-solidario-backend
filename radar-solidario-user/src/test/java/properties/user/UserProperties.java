@@ -2,7 +2,7 @@ package properties.user;
 
 import java.time.LocalDate;
 
-import properties.GeneralProperties;
+import properties.general.GeneralProperties;
 
 public class UserProperties extends GeneralProperties {
 

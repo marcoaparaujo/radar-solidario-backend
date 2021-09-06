@@ -14,7 +14,8 @@ import com.radar.solidario.dto.token.TokenRDTO;
 import com.radar.solidario.security.entity.JwtUser;
 
 import properties.authentication.AuthenticationProperties;
-import properties.user.UserProperties;
+import properties.charity.CharityInstance;
+import properties.user.UserInstance;
 
 public class SecurityInstance extends AuthenticationProperties {
 
@@ -41,6 +42,7 @@ public class SecurityInstance extends AuthenticationProperties {
 	}
 
 	public static TokenFRDTO instanceTokenFRDTO() {
-		return TokenFRDTO.builder().name(UserProperties.NAME).token(TOKEN).roles(instaceVoluntaryRoles()).build();
+		return TokenFRDTO.builder().charity(CharityInstance.instaceCharityHRDTO())
+				.user(UserInstance.instaceUserTokenHRDTO()).token(TOKEN).roles(instaceVoluntaryRoles()).build();
 	}
 }

@@ -12,6 +12,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Spy;
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
@@ -45,6 +47,9 @@ public class SecurityServiceImplementationTest extends AuthenticationProperties 
 	@Mock
 	private Authentication authentication;
 
+	@Spy
+	private ModelMapper mapper;
+	
 	@Mock
 	private JwtUtil jwtTokenUtil;
 

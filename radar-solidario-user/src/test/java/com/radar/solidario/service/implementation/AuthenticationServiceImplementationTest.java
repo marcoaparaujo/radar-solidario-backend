@@ -1,7 +1,6 @@
 package com.radar.solidario.service.implementation;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -70,13 +69,11 @@ public class AuthenticationServiceImplementationTest extends AuthenticationPrope
 
 		this.userPDTO = UserInstance.instaceUserPDTO();
 		this.jwtUser = SecurityInstance.instanceJwtUser();
-		this.authentication = AuthenticationInstance.instace();
 
+		this.authentication = AuthenticationInstance.instace();
 		this.authenticationFRDTO = AuthenticationInstance.instaceAuthenticationFRDTO();
 		this.authenticationFPDTO = AuthenticationInstance.instanceAuthenticationFPDTO();
 		this.authenticationRPDTO = AuthenticationInstance.instanceAuthenticationRPDTO();
-
-		when(this.authenticationRepository.save(any())).thenReturn(this.authentication);
 	}
 
 	@Test
