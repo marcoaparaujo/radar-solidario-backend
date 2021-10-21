@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.radar.solidario.dto.OptionDTO;
@@ -71,6 +73,18 @@ public class FoodStampServiceImplementation implements FoodStampService {
 				.map(foodStamp -> this.mapper.map(foodStamp, FoodStampRDTO.class)).collect(Collectors.toList());
 
 		log.info("End - FoodStampServiceImplementation.findAllByCharityName - List<FoodStampRDTO>: {}", foodStampsRDTO);
+		return foodStampsRDTO;
+	}
+
+	@Override
+	public Page<FoodStampRDTO> findAllByIsAble(Pageable pageable, Boolean isAble) {
+		log.info("Start - FoodStampServiceImplementation.findAll - Pageable: {}, IsAble: {}", pageable, isAble);
+
+		Page<FoodStamp> foodStamps = this.foodStampRepository.findAllByIsAble(pageable, isAble);
+		Page<FoodStampRDTO> foodStampsRDTO = foodStamps
+				.map(foodStamp -> this.mapper.map(foodStamp, FoodStampRDTO.class));
+
+		log.info("End - FoodStampServiceImplementation.findAll - Page<FoodStampRDTO>: {}", foodStampsRDTO);
 		return foodStampsRDTO;
 	}
 

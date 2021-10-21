@@ -2,6 +2,8 @@ package com.radar.solidario.repository;
 
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +14,8 @@ import com.radar.solidario.entity.Donate;
 
 @Repository
 public interface DonateRepository extends JpaRepository<Donate, Long> {
+
+	Page<Donate> findAll(Pageable pageable);
 
 	@Transactional(readOnly = true)
 	@Query(value = "SELECT * FROM donate WHERE family_id = :id ORDER BY date DESC LIMIT 1", nativeQuery = true)

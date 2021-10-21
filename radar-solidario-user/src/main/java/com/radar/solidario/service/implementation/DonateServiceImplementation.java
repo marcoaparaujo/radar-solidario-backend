@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.radar.solidario.dto.donate.DonateFRDTO;
 import com.radar.solidario.dto.donate.DonatePDTO;
 import com.radar.solidario.dto.donate.DonateRDTO;
 import com.radar.solidario.entity.Charity;
@@ -60,6 +63,17 @@ public class DonateServiceImplementation implements DonateService {
 
 		log.info("End - DonateServiceImplementation.findAll - List<DonateRDTO>: {}", donatesRDTO);
 		return donatesRDTO;
+	}
+
+	@Override
+	public Page<DonateFRDTO> findAll(Pageable pageable) {
+		log.info("Start - DonateServiceImplementation.findAll - Pageable: {}", pageable);
+
+		Page<Donate> donates = this.donateRepository.findAll(pageable);
+		Page<DonateFRDTO> donatesFRDTO = donates.map(donate -> this.mapper.map(donate, DonateFRDTO.class));
+
+		log.info("End - DonateServiceImplementation.findAll - Page<DonateFRDTO>: {}", donatesFRDTO);
+		return donatesFRDTO;
 	}
 
 	@Override

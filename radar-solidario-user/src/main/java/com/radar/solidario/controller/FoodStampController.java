@@ -7,9 +7,14 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -75,6 +80,26 @@ public class FoodStampController {
 		response.setData(foodStamps);
 
 		log.info("End - FoodStampController.findAllByCharityName - FoodStampRDTO: {}", foodStamps);
+		return ResponseEntity.ok(response);
+	}
+
+	@Cacheable("food-stamp")
+	@GetMapping(params = "isAble")
+	public ResponseEntity<Response<Page<FoodStampRDTO>>> findAllByIsAble(@RequestParam @Nullable Boolean isAble,
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int pageSize,
+			@RequestParam(value = "order", defaultValue = "id") String order,
+			@RequestParam(value = "direction", defaultValue = "DESC") String direction) {
+		log.info("Start - FoodStampController.findAll - Page: {}, PageSize: {}, Order: {}, Direction: {}", page,
+				pageSize, order, direction);
+		Response<Page<FoodStampRDTO>> response = new Response<>();
+
+		Pageable pageable = PageRequest.of(page, pageSize, Direction.valueOf(direction), order);
+
+		Page<FoodStampRDTO> foodStamps = this.foodStampService.findAllByIsAble(pageable, isAble);
+		response.setData(foodStamps);
+
+		log.info("End - FoodStampController.findAll - Page<FoodStampRDTO>: {}", foodStamps);
 		return ResponseEntity.ok(response);
 	}
 
