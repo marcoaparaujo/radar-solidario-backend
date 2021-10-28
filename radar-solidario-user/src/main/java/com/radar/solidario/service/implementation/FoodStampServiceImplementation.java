@@ -41,14 +41,14 @@ public class FoodStampServiceImplementation implements FoodStampService {
 	private FoodStampRepository foodStampRepository;
 
 	@Override
-	public List<FoodStampHRDTO> findAll() {
-		log.info("Start - FoodStampServiceImplementation.findAll");
+	public Page<FoodStampHRDTO> findAll(Pageable pageable) {
+		log.info("Start - FoodStampServiceImplementation.findAll - Pageable: {}", pageable);
 
-		List<FoodStamp> foodStamps = this.foodStampRepository.findAll();
-		List<FoodStampHRDTO> foodStampsHRDTO = foodStamps.stream()
-				.map(foodStamp -> this.mapper.map(foodStamp, FoodStampHRDTO.class)).collect(Collectors.toList());
+		Page<FoodStamp> foodStamps = this.foodStampRepository.findAll(pageable);
+		Page<FoodStampHRDTO> foodStampsHRDTO = foodStamps
+				.map(foodStamp -> this.mapper.map(foodStamp, FoodStampHRDTO.class));
 
-		log.info("End - FoodStampServiceImplementation.findAll - List<FoodStampHRDTO>: {}", foodStampsHRDTO);
+		log.info("End - FoodStampServiceImplementation.findAll - Page<FoodStampHRDTO>: {}", foodStampsHRDTO);
 		return foodStampsHRDTO;
 	}
 

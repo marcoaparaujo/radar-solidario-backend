@@ -14,7 +14,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,14 +44,20 @@ public class FoodStampController {
 
 	@Cacheable("food-stamp")
 	@GetMapping
-	public ResponseEntity<Response<List<FoodStampHRDTO>>> findAll() {
-		log.info("Start - FoodStampController.findAll");
-		Response<List<FoodStampHRDTO>> response = new Response<>();
+	public ResponseEntity<Response<Page<FoodStampHRDTO>>> findAll(
+			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(value = "size", defaultValue = "10") int pageSize,
+			@RequestParam(value = "order", defaultValue = "id") String order,
+			@RequestParam(value = "direction", defaultValue = "DESC") String direction) {
+		log.info("Start - FoodStampController.findAll - Page: {}, PageSize: {}, Order: {}, Direction: {}");
+		Response<Page<FoodStampHRDTO>> response = new Response<>();
 
-		List<FoodStampHRDTO> foodStamps = this.foodStampService.findAll();
+		Pageable pageable = PageRequest.of(page, pageSize, Direction.valueOf(direction), order);
+		
+		Page<FoodStampHRDTO> foodStamps = this.foodStampService.findAll(pageable);
 		response.setData(foodStamps);
 
-		log.info("End - FoodStampController.findAll - List<FoodStampHRDTO>: {}", foodStamps);
+		log.info("End - FoodStampController.findAll - Page<FoodStampHRDTO>: {}", foodStamps);
 		return ResponseEntity.ok(response);
 	}
 
@@ -85,12 +90,12 @@ public class FoodStampController {
 
 	@Cacheable("food-stamp")
 	@GetMapping(params = "isAble")
-	public ResponseEntity<Response<Page<FoodStampRDTO>>> findAllByIsAble(@RequestParam @Nullable Boolean isAble,
+	public ResponseEntity<Response<Page<FoodStampRDTO>>> findAllByIsAble(@RequestParam Boolean isAble,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int pageSize,
 			@RequestParam(value = "order", defaultValue = "id") String order,
 			@RequestParam(value = "direction", defaultValue = "DESC") String direction) {
-		log.info("Start - FoodStampController.findAll - Page: {}, PageSize: {}, Order: {}, Direction: {}", page,
+		log.info("Start - FoodStampController.findAllByIsAble - Page: {}, PageSize: {}, Order: {}, Direction: {}", page,
 				pageSize, order, direction);
 		Response<Page<FoodStampRDTO>> response = new Response<>();
 
@@ -99,7 +104,7 @@ public class FoodStampController {
 		Page<FoodStampRDTO> foodStamps = this.foodStampService.findAllByIsAble(pageable, isAble);
 		response.setData(foodStamps);
 
-		log.info("End - FoodStampController.findAll - Page<FoodStampRDTO>: {}", foodStamps);
+		log.info("End - FoodStampController.findAllByIsAble - Page<FoodStampRDTO>: {}", foodStamps);
 		return ResponseEntity.ok(response);
 	}
 

@@ -13,7 +13,9 @@ import com.radar.solidario.entity.FoodStamp;
 
 @Repository
 public interface FoodStampRepository extends JpaRepository<FoodStamp, Long> {
-
+	
+	Page<FoodStamp> findAll(Pageable pageable);
+	
 	List<FoodStamp> findAllByDate(LocalDate date);
 
 	List<FoodStamp> findAllByCharityName(String name);

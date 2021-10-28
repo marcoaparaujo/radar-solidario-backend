@@ -14,7 +14,7 @@ import com.radar.solidario.dto.foodStamp.FoodStampRDTO;
 
 public interface FoodStampService {
 
-	List<FoodStampHRDTO> findAll();
+	Page<FoodStampHRDTO> findAll(Pageable pageable);
 
 	List<FoodStampRDTO> findAllByDate(LocalDate date);
 
