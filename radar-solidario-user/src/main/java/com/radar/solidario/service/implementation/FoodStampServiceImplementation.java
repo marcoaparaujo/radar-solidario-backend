@@ -2,6 +2,7 @@ package com.radar.solidario.service.implementation;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -41,10 +42,12 @@ public class FoodStampServiceImplementation implements FoodStampService {
 	private FoodStampRepository foodStampRepository;
 
 	@Override
-	public Page<FoodStampHRDTO> findAll(Pageable pageable) {
+	public Page<FoodStampHRDTO> findAll(Pageable pageable, Long charityId) {
 		log.info("Start - FoodStampServiceImplementation.findAll - Pageable: {}", pageable);
 
-		Page<FoodStamp> foodStamps = this.foodStampRepository.findAll(pageable);
+		Page<FoodStamp> foodStamps = Objects.isNull(charityId) ? this.foodStampRepository.findAll(pageable)
+				: this.foodStampRepository.findAllByCharityId(pageable, charityId);
+
 		Page<FoodStampHRDTO> foodStampsHRDTO = foodStamps
 				.map(foodStamp -> this.mapper.map(foodStamp, FoodStampHRDTO.class));
 
@@ -77,10 +80,13 @@ public class FoodStampServiceImplementation implements FoodStampService {
 	}
 
 	@Override
-	public Page<FoodStampRDTO> findAllByIsAble(Pageable pageable, Boolean isAble) {
+	public Page<FoodStampRDTO> findAllByIsAble(Pageable pageable, Boolean isAble, Long charityId) {
 		log.info("Start - FoodStampServiceImplementation.findAll - Pageable: {}, IsAble: {}", pageable, isAble);
 
-		Page<FoodStamp> foodStamps = this.foodStampRepository.findAllByIsAble(pageable, isAble);
+		Page<FoodStamp> foodStamps = Objects.isNull(charityId)
+				? this.foodStampRepository.findAllByIsAble(pageable, isAble)
+				: this.foodStampRepository.findAllByIsAbleAndCharityId(pageable, isAble, charityId);
+
 		Page<FoodStampRDTO> foodStampsRDTO = foodStamps
 				.map(foodStamp -> this.mapper.map(foodStamp, FoodStampRDTO.class));
 

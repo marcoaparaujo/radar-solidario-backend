@@ -44,7 +44,7 @@ public class FoodStampController {
 
 	@Cacheable("food-stamp")
 	@GetMapping
-	public ResponseEntity<Response<Page<FoodStampHRDTO>>> findAll(
+	public ResponseEntity<Response<Page<FoodStampHRDTO>>> findAll(@RequestParam(required = false) Long charityId,
 			@RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int pageSize,
 			@RequestParam(value = "order", defaultValue = "id") String order,
@@ -53,8 +53,8 @@ public class FoodStampController {
 		Response<Page<FoodStampHRDTO>> response = new Response<>();
 
 		Pageable pageable = PageRequest.of(page, pageSize, Direction.valueOf(direction), order);
-		
-		Page<FoodStampHRDTO> foodStamps = this.foodStampService.findAll(pageable);
+
+		Page<FoodStampHRDTO> foodStamps = this.foodStampService.findAll(pageable, charityId);
 		response.setData(foodStamps);
 
 		log.info("End - FoodStampController.findAll - Page<FoodStampHRDTO>: {}", foodStamps);
@@ -91,7 +91,7 @@ public class FoodStampController {
 	@Cacheable("food-stamp")
 	@GetMapping(params = "isAble")
 	public ResponseEntity<Response<Page<FoodStampRDTO>>> findAllByIsAble(@RequestParam Boolean isAble,
-			@RequestParam(value = "page", defaultValue = "0") int page,
+			@RequestParam(required = false) Long charityId, @RequestParam(value = "page", defaultValue = "0") int page,
 			@RequestParam(value = "size", defaultValue = "10") int pageSize,
 			@RequestParam(value = "order", defaultValue = "id") String order,
 			@RequestParam(value = "direction", defaultValue = "DESC") String direction) {
@@ -101,7 +101,7 @@ public class FoodStampController {
 
 		Pageable pageable = PageRequest.of(page, pageSize, Direction.valueOf(direction), order);
 
-		Page<FoodStampRDTO> foodStamps = this.foodStampService.findAllByIsAble(pageable, isAble);
+		Page<FoodStampRDTO> foodStamps = this.foodStampService.findAllByIsAble(pageable, isAble, charityId);
 		response.setData(foodStamps);
 
 		log.info("End - FoodStampController.findAllByIsAble - Page<FoodStampRDTO>: {}", foodStamps);

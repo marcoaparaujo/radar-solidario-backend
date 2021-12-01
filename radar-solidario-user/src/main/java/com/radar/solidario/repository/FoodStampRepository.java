@@ -16,11 +16,15 @@ public interface FoodStampRepository extends JpaRepository<FoodStamp, Long> {
 	
 	Page<FoodStamp> findAll(Pageable pageable);
 	
+	Page<FoodStamp> findAllByCharityId(Pageable pageable, Long charityId);
+	
 	List<FoodStamp> findAllByDate(LocalDate date);
 
 	List<FoodStamp> findAllByCharityName(String name);
 	
 	Page<FoodStamp> findAllByIsAble(Pageable pageable, Boolean isAble);
+	
+	Page<FoodStamp> findAllByIsAbleAndCharityId(Pageable pageable, Boolean isAble, Long charityId);
 
 	Optional<FoodStamp> findByWeight(Double weight);
 }

@@ -14,13 +14,13 @@ import com.radar.solidario.dto.foodStamp.FoodStampRDTO;
 
 public interface FoodStampService {
 
-	Page<FoodStampHRDTO> findAll(Pageable pageable);
+	Page<FoodStampHRDTO> findAll(Pageable pageable, Long charityId);
 
 	List<FoodStampRDTO> findAllByDate(LocalDate date);
 
 	List<FoodStampRDTO> findAllByCharityName(String name);
 
-	Page<FoodStampRDTO> findAllByIsAble(Pageable pageable, Boolean isAble);
+	Page<FoodStampRDTO> findAllByIsAble(Pageable pageable, Boolean isAble, Long charityId);
 
 	FoodStampRDTO findById(Long id);
 
